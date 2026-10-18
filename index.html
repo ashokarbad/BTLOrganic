@@ -1,0 +1,1119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BTL Organic</title>
+<meta name="description" content="Stone press लाकडी तेल घाणा oils and lab-tested organic foods from BTL Organic. Order online for free home delivery from your nearest of 17 stores in Pune.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F0F2E8;      /* sage-tinted paper */
+  --paper-2:#E6E9DA;
+  --card:#FBFCF7;
+  --ink:#1C2A1F;        /* deep leaf-black */
+  --ink-2:#4A5A4C;
+  --leaf:#2F5D3A;       /* field green */
+  --leaf-2:#3F7A4C;
+  --mustard:#D9A21B;    /* mustard flower */
+  --mustard-soft:#F6E3A6;
+  --wood:#6B4423;       /* ghana wood */
+  --amber:#9C5A08;      /* price colour */
+  --line:#CDD3BE;
+  --danger:#A3361F;
+  --radius-s:6px; --radius-m:12px; --radius-l:22px;
+  --gutter:16px;
+  --max:1180px;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Mukta",system-ui,sans-serif;font-size:17px;line-height:1.55;overflow-x:hidden}
+h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;line-height:1.1;margin:0}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--leaf)}
+:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;border-radius:4px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+@media(min-width:720px){:root{--gutter:28px}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- store bar ---------- */
+.storebar{background:var(--leaf);color:#F3F6EC;font-size:15px}
+.storebar .wrap{display:flex;align-items:center;gap:10px;min-height:44px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.storebar svg{flex:none}
+.storebar b{font-weight:600;color:#fff}
+.storebar .pin{background:var(--mustard);color:var(--ink);border-radius:4px;padding:0 7px;font-weight:600;font-size:14px}
+.storebar .dist{opacity:.8}
+.storebar button{margin-left:auto;background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff;border-radius:999px;padding:2px 14px;cursor:pointer;font-size:14px}
+.storebar button:hover{background:rgba(255,255,255,.12)}
+
+/* ---------- header ---------- */
+header.top{position:sticky;top:0;z-index:30;background:rgba(240,242,232,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand .mark{width:38px;height:38px}
+.brand strong{font-family:"Rozha One",serif;font-size:24px;font-weight:400;line-height:1}
+.brand small{display:block;font-size:12px;color:var(--ink-2);line-height:1.2}
+nav.main{display:none;gap:22px;margin-left:12px}
+nav.main a{color:var(--ink);text-decoration:none;font-weight:500}
+nav.main a:hover{color:var(--leaf)}
+@media(min-width:880px){nav.main{display:flex}}
+.cartbtn{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:8px 16px 8px 12px;cursor:pointer;font-weight:600}
+.cartbtn .count{background:var(--mustard);color:var(--ink);min-width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:14px;padding:0 6px}
+.cartbtn .amt{font-weight:500;opacity:.85;display:none}
+@media(min-width:520px){.cartbtn .amt{display:inline}}
+
+/* ---------- hero ---------- */
+.hero{padding:44px 0 36px;position:relative}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:center}
+.hero .wrap>*{min-width:0}
+@media(max-width:599px){.storebar svg{display:none}}
+@media(min-width:900px){.hero .wrap{grid-template-columns:1.15fr .85fr;gap:48px}.hero{padding:64px 0 56px}.finder{max-width:none;padding:24px}}
+.hero h1{font-size:clamp(40px,7vw,76px);letter-spacing:-.01em;max-width:13ch}
+.hero .dev{font-family:"Rozha One",serif;color:var(--wood);font-size:clamp(22px,3.4vw,32px);margin-top:10px;display:block}
+.hero .lede{margin-top:18px;max-width:52ch;color:var(--ink-2);font-size:18px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-size:15px;color:var(--ink-2);padding:0;list-style:none}
+.facts li{display:flex;align-items:center;gap:6px}
+.facts li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--mustard)}
+.finder{margin-top:4px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius-l);padding:18px;max-width:520px;box-shadow:0 10px 30px -18px rgba(28,42,31,.45)}
+.finder label{font-weight:600;display:block;margin-bottom:8px}
+.finder .row{display:flex;gap:8px}
+.finder input{flex:1;min-width:0;border:1.5px solid var(--line);background:#fff;border-radius:var(--radius-m);padding:10px 14px;font-size:18px;letter-spacing:.06em}
+.finder input:focus{border-color:var(--leaf);outline:none}
+.btn{border:0;border-radius:var(--radius-m);padding:10px 18px;font-weight:600;cursor:pointer;background:var(--leaf);color:#fff;white-space:nowrap}
+.btn:hover{background:var(--leaf-2)}
+.btn.ghost{background:transparent;color:var(--leaf);border:1.5px solid var(--leaf)}
+a.btn{text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn.ghost:hover{background:rgba(47,93,58,.07)}
+.btn.mustard{background:var(--mustard);color:var(--ink)}
+.btn.mustard:hover{background:#E6B232}
+.btn.big{padding:14px 22px;font-size:18px;width:100%}
+.linkbtn{background:none;border:0;padding:0;color:var(--leaf);text-decoration:underline;cursor:pointer;font-weight:500}
+.finder .geo{margin-top:10px;font-size:15px;display:flex;align-items:center;gap:6px}
+.finder .result{margin-top:14px;border-top:1px dashed var(--line);padding-top:14px;display:none}
+.finder .result.on{display:block}
+.finder .result h3{font-size:22px}
+.finder .result p{color:var(--ink-2);font-size:15px}
+.finder .err{color:var(--danger);font-size:15px;margin-top:8px}
+.finder .err.info{color:var(--ink-2)}
+.detect{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1.5px solid var(--leaf);color:var(--leaf);border-radius:999px;padding:5px 14px 5px 10px;font-weight:600;cursor:pointer;font-size:15px}
+.detect:hover{background:rgba(47,93,58,.07)}
+.detect[aria-busy="true"]{opacity:.7;cursor:progress}
+.detect[aria-busy="true"] svg{animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(.8);opacity:.5}}
+.finder .warn{margin-top:10px;background:var(--mustard-soft);border-radius:8px;padding:8px 12px;font-size:14.5px;color:var(--ink)}
+.hint{font-size:14px;color:var(--ink-2);margin-top:4px;min-height:0}
+/* location permission ask */
+.ask{position:fixed;inset:0;z-index:80;background:rgba(28,42,31,.5);display:grid;align-items:end;justify-items:center;padding:16px}
+.ask[hidden]{display:none}
+@media(min-width:600px){.ask{align-items:center}}
+.ask-card{background:var(--card);border-radius:var(--radius-l);padding:26px 22px 18px;max-width:420px;width:100%;text-align:center;box-shadow:0 30px 60px -30px rgba(0,0,0,.5);animation:rise .3s ease}
+@keyframes rise{from{transform:translateY(24px);opacity:0}}
+.ask-card .ic{width:64px;height:64px;margin:0 auto 10px;display:grid;place-items:center;border-radius:50%;background:#EAF2E6;color:var(--leaf)}
+.ask-card h2{font-size:28px}
+.ask-card p{color:var(--ink-2);margin:8px 0 18px}
+.ask-card .alt{display:block;margin:12px auto 4px}
+.ask-card small{display:block;color:var(--ink-2);font-size:13px;margin-top:10px}
+
+/* ---------- offer ---------- */
+.offer{background:var(--mustard);color:var(--ink)}
+.offer .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding-top:14px;padding-bottom:14px}
+.offer strong{font-family:"Rozha One",serif;font-weight:400;font-size:24px;line-height:1.1}
+.offer span{font-size:16px}
+
+/* ---------- catalogue ---------- */
+section.cat{padding:56px 0 20px;scroll-margin-top:70px}
+.cat-head{display:grid;gap:8px;margin-bottom:22px}
+@media(min-width:820px){.cat-head{grid-template-columns:1fr auto;align-items:end}}
+.cat-head h2{font-size:clamp(34px,5vw,52px)}
+.cat-head h2 .dev{display:block;color:var(--wood);font-size:.55em;margin-top:6px}
+.cat-head p{color:var(--ink-2);max-width:60ch;margin-top:6px}
+.searchbox{position:relative;max-width:320px;width:100%}
+.searchbox input{width:100%;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:9px 16px 9px 40px}
+.searchbox svg{position:absolute;left:14px;top:50%;transform:translateY(-50%)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.chip{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:5px 15px;cursor:pointer;font-weight:500;font-size:15px}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip:hover:not([aria-pressed="true"]){border-color:var(--ink-2)}
+.list{display:grid;gap:12px}
+@media(min-width:900px){.list{grid-template-columns:1fr 1fr}}
+.item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-m);padding:16px;display:grid;grid-template-columns:44px 1fr;gap:4px 14px}
+.item .sw{width:44px;height:52px;grid-row:span 2}
+.item h3{font-family:"Mukta",sans-serif;font-weight:700;font-size:19px;line-height:1.25}
+.item h3 .loc{font-weight:500;color:var(--wood);margin-left:6px;font-size:17px}
+.item .use{font-size:14.5px;color:var(--ink-2);line-height:1.4}
+.item .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.item .tag{font-size:12.5px;background:var(--paper-2);border-radius:4px;padding:1px 8px;color:var(--ink-2)}
+.item .buy{grid-column:1/-1;margin-top:10px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.sizes{display:flex;flex-wrap:wrap;gap:6px}
+.size{border:1.5px solid var(--line);background:#fff;border-radius:var(--radius-s);padding:4px 10px;cursor:pointer;font-size:14.5px;line-height:1.25;text-align:left;position:relative}
+.size b{display:block;font-weight:700;color:var(--amber);font-size:15.5px}
+.size[aria-checked="true"]{border-color:var(--leaf);background:#EAF2E6;box-shadow:inset 0 0 0 1px var(--leaf)}
+.size .deal{position:absolute;top:-9px;right:-6px;background:var(--mustard);color:var(--ink);font-size:11px;font-weight:700;border-radius:4px;padding:0 5px;line-height:16px}
+.add{display:flex;align-items:center;gap:10px}
+.incart{font-size:14px;color:var(--leaf);font-weight:600}
+.add .btn{padding:8px 16px}
+.empty{padding:24px;border:1.5px dashed var(--line);border-radius:var(--radius-m);color:var(--ink-2)}
+.more{margin-top:28px;background:var(--paper-2);border-radius:var(--radius-l);padding:22px}
+.more h3{font-size:26px}
+.more p{color:var(--ink-2);margin-top:4px}
+.more ul{list-style:none;padding:0;margin:14px 0 16px;display:flex;flex-wrap:wrap;gap:8px}
+.more li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 14px;font-size:15px}
+
+/* ---------- stores ---------- */
+section.stores{padding:56px 0 64px;scroll-margin-top:70px}
+.storegrid{display:grid;gap:10px;margin-top:20px}
+@media(min-width:700px){.storegrid{grid-template-columns:1fr 1fr}}
+@media(min-width:1040px){.storegrid{grid-template-columns:1fr 1fr 1fr}}
+.store{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.store.near{border-color:var(--leaf);box-shadow:inset 0 0 0 1px var(--leaf)}
+.store .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.store h3{font-family:"Mukta",sans-serif;font-weight:700;font-size:17.5px}
+.store .km{font-size:14px;color:var(--leaf);font-weight:600;white-space:nowrap}
+.store address{font-style:normal;font-size:14.5px;color:var(--ink-2);line-height:1.4}
+.store .foot{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.store .pinb{font-size:13px;font-weight:600;background:var(--paper-2);border-radius:4px;padding:0 7px}
+.store .badge{font-size:13px;font-weight:700;color:var(--leaf)}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:#DCE3D6;padding:44px 0 30px;font-size:15.5px}
+footer .wrap{display:grid;gap:24px}
+@media(min-width:820px){footer .wrap{grid-template-columns:1.4fr 1fr 1fr}}
+footer h2{font-size:28px;color:#fff}
+footer h3{font-family:"Mukta",sans-serif;font-weight:700;font-size:16px;color:#fff;margin-bottom:6px}
+footer a{color:var(--mustard-soft)}
+footer .fine{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);padding-top:16px;font-size:13.5px;opacity:.75}
+
+/* ---------- screens ---------- */
+.screen{display:none}
+.screen.on{display:block}
+.page{padding-top:32px;padding-bottom:70px}
+.back{display:inline-flex;align-items:center;gap:6px;margin-bottom:16px}
+.page h1{font-size:clamp(34px,5vw,50px)}
+.cartgrid{display:grid;gap:24px;margin-top:22px;align-items:start}
+@media(min-width:960px){.cartgrid{grid-template-columns:1.25fr 1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-l);padding:20px}
+.panel h2{font-size:26px;margin-bottom:12px}
+.line{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.line:last-child{border-bottom:0}
+.line .sw{width:30px;height:36px}
+.line .nm{font-weight:600;line-height:1.25}
+.line .sz{font-size:14px;color:var(--ink-2)}
+.line .rt{text-align:right}
+.line .rt b{display:block;color:var(--amber)}
+.stepper{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;margin-top:6px;background:#fff}
+.stepper button{width:30px;height:30px;border:0;background:transparent;cursor:pointer;font-size:18px;font-weight:600;border-radius:999px}
+.stepper button:hover{background:var(--paper-2)}
+.stepper span{min-width:26px;text-align:center;font-weight:600}
+.remove{font-size:13.5px;margin-left:10px}
+.progress{margin:6px 0 16px;background:var(--mustard-soft);border-radius:var(--radius-m);padding:12px 14px;font-size:15.5px}
+.bar{height:8px;background:rgba(28,42,31,.12);border-radius:99px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--leaf);border-radius:99px;transition:width .35s ease}
+.sum{display:grid;grid-template-columns:1fr auto;gap:6px 12px;margin-top:14px;font-size:16px}
+.sum .off{color:var(--leaf);font-weight:600}
+.sum .tot{font-family:"Rozha One",serif;font-size:26px;border-top:1px solid var(--line);padding-top:10px;margin-top:4px}
+.field{display:block;margin-bottom:14px}
+.field span{display:block;font-weight:600;font-size:15px;margin-bottom:4px}
+.field span small{font-weight:400;color:var(--ink-2)}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);background:#fff;border-radius:var(--radius-m);padding:10px 12px;font-size:16.5px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--leaf)}
+.field.bad input,.field.bad select,.field.bad textarea{border-color:var(--danger)}
+.field .msg{display:none;color:var(--danger);font-size:14px;margin-top:4px}
+.field.bad .msg{display:block}
+.two{display:grid;gap:0 12px}
+@media(min-width:520px){.two{grid-template-columns:1fr 1fr}}
+.storepick{background:#EAF2E6;border-radius:var(--radius-m);padding:12px 14px;margin-bottom:14px;font-size:15px}
+.storepick b{display:block;font-size:16.5px}
+.note{font-size:14px;color:var(--ink-2);margin-top:10px}
+.cart-empty{text-align:center;padding:40px 10px}
+.cart-empty p{color:var(--ink-2);margin:8px 0 18px}
+
+/* success */
+.done{max-width:760px;margin:0 auto}
+.tick{width:72px;height:72px}
+.tick circle{stroke-dasharray:190;stroke-dashoffset:190;animation:draw .7s ease forwards}
+.tick path{stroke-dasharray:50;stroke-dashoffset:50;animation:draw .4s .55s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.done h1{margin-top:12px}
+.done .oid{display:inline-block;margin-top:10px;background:var(--ink);color:#fff;border-radius:6px;padding:3px 12px;font-weight:600;letter-spacing:.04em}
+.done .lede{color:var(--ink-2);margin-top:12px;max-width:58ch}
+.dgrid{display:grid;gap:14px;margin-top:24px}
+@media(min-width:700px){.dgrid{grid-template-columns:1fr 1fr}}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:15.5px}
+.dl dt{color:var(--ink-2)}
+.dl dd{margin:0;font-weight:600}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.wa{background:#1F7A45;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none}
+.wa:hover{background:#25904F}
+.wa.big{font-size:19px;padding:16px 22px}
+.steps{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:0}
+.steps li{display:grid;grid-template-columns:36px 1fr;gap:14px;position:relative;padding-bottom:20px}
+.steps li:not(:last-child)::after{content:"";position:absolute;left:17px;top:38px;bottom:2px;width:2px;background:var(--line)}
+.steps li.done:not(:last-child)::after{background:var(--leaf)}
+.steps .dot{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;background:var(--paper-2);color:var(--ink-2);border:2px solid var(--line)}
+.steps li.done .dot{background:var(--leaf);border-color:var(--leaf);color:#fff}
+.steps li.now .dot{background:var(--mustard);border-color:var(--mustard);color:var(--ink);box-shadow:0 0 0 5px rgba(217,162,27,.25)}
+.steps b{display:block;font-size:18px;line-height:1.3;padding-top:5px}
+.steps small{display:block;color:var(--ink-2);font-size:15px;margin-top:2px}
+.steps li.now b{color:var(--ink)}
+.steps .act{margin-top:12px;display:grid;gap:10px;justify-items:start}
+.steps .act .wa{width:100%}
+@media(min-width:600px){.steps .act .wa{width:auto}}
+.preview{width:100%;font-size:15px}
+.preview summary{cursor:pointer;color:var(--leaf);font-weight:600}
+.preview .bubble{margin-top:10px;background:#DCF3D0;border-radius:4px 14px 14px 14px;padding:12px 14px;font-size:14.5px;line-height:1.45;color:#16261A;max-width:360px;box-shadow:0 1px 0 rgba(0,0,0,.08);white-space:pre-wrap;word-break:break-word}
+.steps .preview .bubble b{display:inline;font-size:inherit;padding:0;line-height:inherit}
+.steps .preview .bubble i{font-style:italic}
+.pendingbar{background:var(--mustard);color:var(--ink);font-size:15px}
+.pendingbar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding-top:8px;padding-bottom:8px}
+.pendingbar a{color:var(--ink);font-weight:700}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-weight:500;z-index:60;transition:all .25s ease;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<div class="pendingbar" id="pendingBar" role="region" aria-label="Order not sent yet" hidden></div>
+<div class="storebar" role="region" aria-label="Your delivery store">
+  <div class="wrap" id="storebar"></div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home" data-go="shop" aria-label="BTL Organic home">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#2F5D3A"/><path d="M20 8c5 7 8 11 8 15a8 8 0 0 1-16 0c0-4 3-8 8-15z" fill="#D9A21B"/><circle cx="20" cy="24" r="3" fill="#6B4423"/></svg>
+      <span><strong>BTL Organic</strong><small>Since 2014 · लाकडी तेल घाणा</small></span>
+    </a>
+    <nav class="main" aria-label="Sections">
+      <a href="#oils" data-go="shop">Oils</a>
+      <a href="#foods" data-go="shop">Organic foods</a>
+      <a href="#stores" data-go="shop">Stores</a>
+    </nav>
+    <button class="cartbtn" id="cartBtn" aria-label="Open cart">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+      Cart <span class="count" id="cartCount">0</span><span class="amt" id="cartAmt"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= SHOP ================= -->
+<main id="shop" class="screen on">
+  <section class="hero" id="home">
+    <div class="wrap">
+      <div>
+        <h1>Oil pressed slowly in wood, the old way.</h1>
+        <span class="dev" lang="hi">कच्ची घानी · बैल कोल्हू</span>
+        <p class="lede">Stone press oils from A-grade organic seeds, plus lab-tested dals, seeds, ghee and masalas. Order here and your nearest BTL store delivers to your door.</p>
+        <ul class="facts">
+          <li>17 stores across Pune &amp; PCMC</li>
+          <li>Free home delivery</li>
+          <li>Lab-tested organic</li>
+        </ul>
+
+      </div>
+
+      <form class="finder" id="finder" novalidate>
+        <label for="pinInput">Find the store nearest to you</label>
+        <div class="row">
+          <input id="pinInput" inputmode="numeric" maxlength="6" autocomplete="postal-code" placeholder="6-digit pincode" aria-describedby="pinErr">
+          <button class="btn" type="submit">Find store</button>
+        </div>
+        <div class="geo"><span>or</span> <button type="button" class="detect" id="geoBtn" data-act="detect"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7.5"/></svg><span>Detect my pincode</span></button></div>
+        <p class="err" id="pinErr" role="alert"></p>
+        <div class="result" id="finderResult" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+
+  <div class="offer" id="offers">
+    <div class="wrap">
+      <strong>₹100 off every 5 litres of oil</strong>
+      <span>Applies automatically in your cart. Mix any oils and any bottle sizes, it all counts towards the 5 litres.</span>
+    </div>
+  </div>
+
+  <section class="cat" id="oils">
+    <div class="wrap">
+      <div class="cat-head">
+        <div>
+          <h2>Stone press oils <span class="dev" lang="mr">लाकडी घाणा तेल</span></h2>
+          <p>Cold pressed in a wooden ghana at low speed, so the oil stays fresh, pure and full of flavour. Prices include all taxes.</p>
+        </div>
+        <div class="searchbox">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5A4C" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="oilSearch" placeholder="Search oils" aria-label="Search oils">
+        </div>
+      </div>
+      <div class="chips" id="oilChips" role="group" aria-label="Filter oils by use"></div>
+      <div class="list" id="oilList"></div>
+    </div>
+  </section>
+
+  <section class="cat" id="foods">
+    <div class="wrap">
+      <div class="cat-head">
+        <div>
+          <h2>Organic foods <span class="dev" lang="mr">सेंद्रिय अन्नधान्य</span></h2>
+          <p>Nuts and seeds, dals and pulses, sugar alternatives, A2 Gir cow ghee and stone ground masalas.</p>
+        </div>
+        <div class="searchbox">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5A4C" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="foodSearch" placeholder="Search organic foods" aria-label="Search organic foods">
+        </div>
+      </div>
+      <div class="chips" id="foodChips" role="group" aria-label="Filter organic foods by type"></div>
+      <div class="list" id="foodList"></div>
+
+      <div class="more">
+        <h3>Also in our stores</h3>
+        <p>These items are in stock at most stores. Message us for today's price and pack sizes.</p>
+        <ul id="moreList"></ul>
+        <a class="btn ghost" id="moreWa" target="_blank" rel="noopener">Ask for prices on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stores" id="stores">
+    <div class="wrap">
+      <div class="cat-head">
+        <div>
+          <h2>Our 17 stores in Pune</h2>
+          <p id="storesSub">Enter your pincode above and we'll sort these by distance from you.</p>
+        </div>
+      </div>
+      <div class="storegrid" id="storeGrid"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= CART ================= -->
+<main id="cart" class="screen" aria-labelledby="cartTitle">
+  <div class="wrap page">
+    <button class="linkbtn back" data-go="shop">← Continue shopping</button>
+    <h1 id="cartTitle">Your cart</h1>
+    <div id="cartBody"></div>
+  </div>
+</main>
+
+<!-- ================= SUCCESS ================= -->
+<main id="success" class="screen" aria-labelledby="doneTitle">
+  <div class="wrap page"><div class="done" id="doneBody"></div></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h2>BTL Organic</h2>
+      <p style="margin-top:8px;max-width:46ch">Part of BTL Group of Companies, founded by alumni of IIT Bombay and IIM Kashipur. Our aim is simple: fresh, pure, premium organic food on every table.</p>
+    </div>
+    <div>
+      <h3>Order by phone</h3>
+      <p>Call or WhatsApp <a href="tel:+917414901815">74149 01815</a></p>
+      <p>Free home delivery</p>
+    </div>
+    <div>
+      <h3>Shop</h3>
+      <p><a href="#oils" data-go="shop">Stone press oils</a></p>
+      <p><a href="#foods" data-go="shop">Organic foods</a></p>
+      <p><a href="#stores" data-go="shop">Store locations</a></p>
+    </div>
+    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="ask" id="locAsk" role="dialog" aria-modal="true" aria-labelledby="askTitle" hidden>
+  <div class="ask-card">
+    <div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+    <h2 id="askTitle">Find your nearest BTL store</h2>
+    <p>Allow location access and we'll detect your pincode and pick the closest of our 17 stores for free home delivery.</p>
+    <button class="btn big" id="askAllow">Allow location</button>
+    <button class="linkbtn alt" id="askPin">I'll type my pincode instead</button>
+    <small>Your location is only used to find your pincode and nearest store.</small>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   CONFIG
+   ========================================================= */
+const CONFIG = {
+  whatsapp: "917414901815",
+  offer: { everyMl: 5000, off: 100 },   // ₹100 off for every 5 L of oil
+  orderEndpoint: ""                     // optional: POST orders as JSON to your backend
+};
+
+/* =========================================================
+   DATA (from BTL price list)
+   ========================================================= */
+const OIL_SIZES  = [{l:"50 ml",q:50},{l:"100 ml",q:100},{l:"200 ml",q:200},{l:"500 ml",q:500},{l:"1 L",q:1000},{l:"5 L",q:5000}];
+const FOOD_SIZES = [{l:"100 g",q:100},{l:"200 g",q:200},{l:"500 g",q:500},{l:"1 kg",q:1000},{l:"2 kg",q:2000},{l:"5 kg",q:5000}];
+const _ = null;
+const CK="Cooking", HS="Hair & skin", MS="Massage", WL="Wellness", PJ="Pooja";
+const OILS = [
+ [1,"Groundnut oil","शेंगदाणे","Cooking oil (खाने का तेल)",[CK],[_,_,_,390,670,3350],"#D9A441"],
+ [2,"Safflower oil","करडई","Cooking oil (खाने का तेल)",[CK],[_,_,_,430,690,3450],"#E3B43C"],
+ [3,"Sunflower oil","सूर्यफूल","Cooking oil (खाने का तेल)",[CK],[_,_,_,420,680,3400],"#EEC643"],
+ [4,"Flaxseed oil","जवस / अलसी","Cooking oil (खाने का तेल)",[CK],[_,_,290,490,950,_],"#C98F2A"],
+ [5,"Rice bran oil","चावल भूसी","Cooking oil (खाने का तेल)",[CK],[_,_,_,790,1440,_],"#D8B25A"],
+ [6,"Olive oil","जैतून","Cooking and salad oil",[CK],[_,_,890,1770,3290,_],"#A9A23A"],
+ [7,"Soyabean oil","सोयाबीन","Cooking oil (खाने का तेल)",[CK],[_,_,_,590,1090,_],"#E0B84A"],
+ [8,"Black mustard oil","मोहरी / सरसों","Cooking, massage, skin care and hair",[CK,MS,HS],[_,_,_,440,790,_],"#B8741A"],
+ [9,"Yellow mustard oil","पीली सरसों","Cooking, massage, skin care and hair",[CK,MS,HS],[_,_,_,940,1690,_],"#C98A1E"],
+ [10,"Coconut oil","खोबरे","Cooking, massage, skin care and hair",[CK,MS,HS],[_,_,390,590,1180,_],"#EDE3C2"],
+ [11,"Sesame oil","तीळ","Cooking, massage, skin care and hair",[CK,MS,HS],[_,_,390,770,1290,_],"#C99234"],
+ [12,"Black sesame oil","काळा तीळ","Cooking, massage, skin care and hair",[CK,MS,HS],[_,390,690,1540,_,_],"#8A5A1E"],
+ [13,"Eucalyptus oil","नीलगिरी","Respiratory relief, pain and inflammation (श्वसन संबंधी राहत)",[WL],[1290,_,_,_,_,_],"#CBD5A2"],
+ [14,"Diya oil, sesame with camphor","तीळ + कपूर","Lamp oil for pooja (दिए का तेल)",[PJ],[_,_,_,590,_,_],"#D6A048"],
+ [15,"Castor oil","एरंडेल","Digestion, constipation relief, hair and skin",[WL,HS],[_,590,1090,_,_,_],"#E6D59A"],
+ [16,"Pumpkin seed oil","कद्दू बीज","Hair oil and skin care",[HS],[1890,_,_,_,_,_],"#5E6B2A"],
+ [17,"Moringa (ben) oil","मोरिंगा ओलीफेरा","Hair oil and skin care",[HS],[1950,_,_,_,_,_],"#E2D27A"],
+ [18,"Apricot kernel oil","खुबानी कर्नेल","Hair oil and skin care",[HS],[1870,_,_,_,_,_],"#E9C86A"],
+ [19,"Hemp seed oil","भांग बीज","Hair oil and skin care",[HS],[1980,_,_,_,_,_],"#7D8B3A"],
+ [20,"Kalonji (onion black seed) oil","कांदा बी","Hair oil and cooking",[HS,CK],[930,1790,_,_,_,_],"#6B4A1E"],
+ [21,"Rosemary oil","गुल्मेहंदी","Hair oil and skin care",[HS],[1830,_,_,_,_,_],"#C9C98A"],
+ [22,"Neem oil","नीम","Hair, skin care and digestion",[HS,WL],[1790,_,_,_,_,_],"#8F7A2A"],
+ [23,"Fenugreek (methi) oil","मेथीदाणा","Hair oil and skin care",[HS],[1910,_,_,_,_,_],"#B98A2E"],
+ [24,"Argan oil","आर्गन","Hair oil and skin care",[HS],[1970,_,_,_,_,_],"#D9A63A"],
+ [25,"Bhringraj oil","भृंगराज","Hair oil and skin care",[HS],[1990,_,_,_,_,_],"#4E5E2A"],
+ [26,"Jojoba oil","जोजोबा","Hair oil and skin care",[HS],[1820,_,_,_,_,_],"#E6C45A"],
+ [27,"Amla oil","आंवला","Hair oil and skin care",[HS],[1960,_,_,_,_,_],"#9A8A3A"],
+ [28,"Grapeseed oil","अंगूर / द्राक्ष","Hair oil and skin care",[HS],[2440,_,_,_,_,_],"#C6C25A"],
+ [29,"Avocado oil","एवोकॅडो","Hair oil and skin care",[HS],[2660,_,_,_,_,_],"#8C9A3A"],
+ [30,"Rosehip oil","गुलाब बीज","Hair oil and skin care",[HS],[2690,_,_,_,_,_],"#D7782E"],
+ [31,"Pomegranate seed oil","अनार / डाळिंब","Hair oil and skin care",[HS],[2960,_,_,_,_,_],"#C9862E"],
+ [32,"Almond (mamra) oil","बदाम","Skin care, edible and hair oil",[HS,CK],[680,1190,2130,_,_,_],"#EAD48A"],
+ [33,"Walnut oil","अक्रोड","Skin care, edible and hair oil",[HS,CK],[920,_,_,_,_,_],"#D3A955"]
+].map(r=>({id:"o"+r[0],kind:"oil",name:r[1],loc:r[2],use:r[3],tags:r[4],prices:r[5],color:r[6]}));
+
+const SD="Seeds", SW="Sugar alternatives", DL="Dals & pulses", GH="Ghee", MA="Masalas";
+const FOODS = [
+ [34,"Watermelon seeds",SD,"Supports heart health, immunity, skin and hair",[_,890,_,_,_,_],"#7A6A4A"],
+ [35,"Chia seeds",SD,"Supports digestion and gut health, rich in omega-3",[390,_,_,_,_,_],"#5B5B55"],
+ [36,"Sunflower seeds",SD,"Supports immunity, heart health and healthy skin",[_,_,790,_,_,_],"#8E8A6A"],
+ [37,"Fenugreek (methi) seeds",SD,"Supports digestion, hair and skin care",[190,_,_,_,_,_],"#C9A34A"],
+ [38,"Jaggery powder",SW,"Made from certified organic sugarcane, no chemicals",[_,_,390,_,_,_],"#A8692A"],
+ [39,"Jaggery cubes",SW,"Certified organic sugarcane, hygienically packed",[_,_,390,_,_,_],"#9A5E25"],
+ [40,"Desi khandsari / brown sugar",SW,"Organic sugarcane, sulphur-free process",[_,_,330,_,_,_],"#C08A4A"],
+ [41,"Urad whole (black)",DL,"Rich in protein, carbohydrates, vitamins and minerals",[_,_,280,530,_,_],"#2E2A26"],
+ [42,"Urad split (white)",DL,"Grown without chemical pesticides. For dosa, idli and vada",[_,_,280,530,_,_],"#E7E1CF"],
+ [43,"Masoor dal whole (with skin)",DL,"Naturally rich in protein and dietary fibre",[_,_,260,510,_,_],"#7A4A30"],
+ [44,"Masoor dal split (dhuli)",DL,"Protein, complex carbohydrates and fibre",[_,_,290,540,_,_],"#D9824A"],
+ [45,"Moong whole (green gram)",DL,"Rich in protein, fibre and vitamins",[_,_,290,540,_,_],"#5E7A3A"],
+ [46,"Moong dal (dhuli)",DL,"Easy to digest, rich in protein and antioxidants",[_,_,290,540,_,_],"#E8C85A"],
+ [47,"Kabuli chana (white chickpea)",DL,"Rich in protein, gluten-free",[_,_,260,510,_,_],"#E3CB98"],
+ [48,"Chana dal (Bengal gram)",DL,"Protein, complex carbohydrates, vitamins and minerals",[_,_,270,520,_,_],"#E2B44A"],
+ [49,"Brown chana",DL,"Rich in protein and fibre",[_,_,270,520,_,_],"#7A5530"],
+ [50,"Tur dal (arhar)",DL,"Rich in protein, carbohydrates, vitamins and minerals",[_,_,290,540,_,_],"#E6B53A"],
+ [51,"A2 Gir cow ghee (bilona)",GH,"Traditional bilona method, from grass-fed Gir cows' A2 milk",[990,1690,2990,5690,_,_],"#F0C95A"],
+ [52,"Garam masala",MA,"Hand-picked spices, stone ground for aroma",[290,560,_,_,_,_],"#7A4A25"],
+ [53,"Sambar masala",MA,"Authentic South Indian blend, no chemicals",[290,560,_,_,_,_],"#B0552A"],
+ [54,"Pav bhaji masala",MA,"Mumbai street-style flavour, naturally prepared",[270,520,_,_,_,_],"#A8402A"],
+ [55,"Peri peri masala",MA,"Fiery blend, no artificial colours",[490,960,_,_,_,_],"#C2321F"]
+].map(r=>({id:"f"+r[0],kind:"food",name:r[1],loc:"",use:r[3],tags:[r[2]],prices:r[4],color:r[5]}));
+
+const MORE = ["Pumpkin seeds","Red chilli powder","Turmeric (haldi) powder","Basmati rice","Cowpea (chawali)","Honey","Thalipith bhajani","Ginger powder","Rock salt (saindhav)","Garlic powder","White sesame seeds","Black sesame seeds","Gluten-free flaxseed flour"];
+
+/* Stores — coordinates approximate (from address) */
+const STORES = [
+ {id:1, area:"Shukrawar Peth", addr:"688, Shukrawar Peth, Mahatma Gandhi Rd, opp. Shrinath Theater, near Mandai, Rameshwar Chowk, Pune", pin:"411002", lat:18.5118, lng:73.8566},
+ {id:2, area:"Sadashiv Peth", addr:"Ground floor, Shree Swami Sadan, Chakan Oil Depot, 1129, Nimbalkar Talim Chowk, near Sujata Mastani, Sadashiv Peth, Pune", pin:"411030", lat:18.5107, lng:73.8486},
+ {id:3, area:"Bibwewadi, Laketown Rd", addr:"Shop 11, Park Landmark Phase 2, Laketown Road, Mahalaxmi Nagar, Bibwewadi, Pune", pin:"411037", lat:18.4721, lng:73.8657},
+ {id:4, area:"Dighi", addr:"Shop No 3, Alandi-Vishrantwadi Road, Datta Nagar, Samarth Nagar, Dighi, Pune", pin:"411015", lat:18.6150, lng:73.8770},
+ {id:5, area:"Chinchwad Gaon", addr:"Ratnashri Building, Morya Gosavi Mandir Main Road, Gandhi Peth, Prabhat Colony, Chinchwad Gaon, Pimpri-Chinchwad", pin:"411033", lat:18.6226, lng:73.7830},
+ {id:6, area:"Baner, Balewadi Link Rd", addr:"S2, Yogiraj Heights, near SVC Bank, Baner Balewadi Link Road, Baner, Pune", pin:"411045", lat:18.5646, lng:73.7795},
+ {id:7, area:"Chikhali", addr:"Gat No. 1297, Shop 02, Sane House, opp. Datta Kaka, beside Hotel D.K, Vitthal Nagar, Sanewadi, Chikhali, Pimpri-Chinchwad", pin:"411062", lat:18.6835, lng:73.8040},
+ {id:8, area:"Akurdi", addr:"Bhaji Mandai, Vitthal Mandir Road, Akurdi Gaothan, Vivek Nagar, Akurdi, Pimpri-Chinchwad", pin:"411035", lat:18.6478, lng:73.7680},
+ {id:9, area:"Pimpri Gaon", addr:"Shop No 10, Savitri Lakadi Ghana, Sai Shiv Park, Old Kate Pimple Rd, near Aditya Homoeopathic Hospital, Pimpri Gaon, Pimpri-Chinchwad", pin:"411017", lat:18.6170, lng:73.8040},
+ {id:10, area:"Hadapsar", addr:"Road No. 1, Pune-Saswad Road, Bhekrai Nagar, Tukai Darshan, Hadapsar, Pune", pin:"411028", lat:18.4800, lng:73.9550},
+ {id:11, area:"Bibwewadi, Balaji Nagar", addr:"Park Landmark, Mahalaxmi Nagar, Balaji Nagar, Bibwewadi, Pune", pin:"411037", lat:18.4716, lng:73.8650},
+ {id:12, area:"Anand Nagar", addr:"Shop No 5, B Wing, Shivprasad Complex, Sun City Rd, Nimbaj Nagar, Anand Nagar, Pune", pin:"411051", lat:18.4775, lng:73.8110},
+ {id:13, area:"Rasta Peth", addr:"Arihant Court 481, 16, Mudaliar Rd, near Shantai Hotel, Rasta Peth, Pune", pin:"411002", lat:18.5190, lng:73.8695},
+ {id:14, area:"Rahatani", addr:"Shop No 1 & 2, Ananta Building, opp. Legacy Vista Society, Kokane Mala, Pawana Nagar, Rahatani, Pimpri-Chinchwad", pin:"411017", lat:18.6040, lng:73.7880},
+ {id:15, area:"Aundh", addr:"B-4, near Gaikwad Petrol Pump, Marutirao Gaikwad Nagar, Aundh, Pune", pin:"411067", lat:18.5630, lng:73.8125},
+ {id:16, area:"Deccan Gymkhana", addr:"Shop No 3, Dr. Harekar Apt, Bhandarkar Rd, near Kamla Nehru Park, Shreeman Society, Deccan Gymkhana, Pune", pin:"411004", lat:18.5187, lng:73.8372},
+ {id:17, area:"Baner, Murkute Park", addr:"Shop G-1, Abil Imperial, Rohan Seher Lane, near Murkute Park, Baner, Pune", pin:"411069", lat:18.5560, lng:73.7930}
+].map(s=>({...s,name:"BTL Oils, "+s.area}));
+
+/* Approximate centre of each Pune / PCMC pincode area */
+const PINS = {
+ "411001":[18.5204,73.8743],"411002":[18.5135,73.8590],"411003":[18.5650,73.8450],"411004":[18.5160,73.8380],
+ "411005":[18.5310,73.8470],"411006":[18.5540,73.8870],"411007":[18.5600,73.8100],"411008":[18.5380,73.7920],
+ "411009":[18.4930,73.8500],"411011":[18.5200,73.8640],"411012":[18.5830,73.8330],"411013":[18.5010,73.9300],
+ "411014":[18.5620,73.9160],"411015":[18.5950,73.8820],"411016":[18.5320,73.8300],"411017":[18.6180,73.8000],
+ "411018":[18.6290,73.8110],"411019":[18.6400,73.7950],"411020":[18.5450,73.8350],"411021":[18.5160,73.7720],
+ "411022":[18.5000,73.9080],"411023":[18.4550,73.7700],"411024":[18.4350,73.7700],"411026":[18.6230,73.8480],
+ "411027":[18.5850,73.8150],"411028":[18.4900,73.9420],"411029":[18.5080,73.8200],"411030":[18.5085,73.8510],
+ "411031":[18.5950,73.8650],"411032":[18.5880,73.9200],"411033":[18.6180,73.7800],"411034":[18.6000,73.8220],
+ "411035":[18.6500,73.7700],"411036":[18.5300,73.9320],"411037":[18.4760,73.8650],"411038":[18.5060,73.8070],
+ "411039":[18.6370,73.8400],"411040":[18.4900,73.9000],"411041":[18.4560,73.8200],"411042":[18.5000,73.8620],
+ "411043":[18.4600,73.8550],"411044":[18.6600,73.7710],"411045":[18.5620,73.7850],"411046":[18.4520,73.8660],
+ "411047":[18.6000,73.9300],"411048":[18.4720,73.8950],"411051":[18.4760,73.8150],"411052":[18.4900,73.8150],
+ "411057":[18.5960,73.7400],"411058":[18.4800,73.8020],"411060":[18.4700,73.9200],"411061":[18.5920,73.8110],
+ "411062":[18.6850,73.8000],"411067":[18.5640,73.8130],"411068":[18.4600,73.9200],"411069":[18.5560,73.7930],
+ "412101":[18.6200,73.7100],"412105":[18.6770,73.8970],"412114":[18.6250,73.9200],"412115":[18.5900,73.7150],
+ "412207":[18.5800,73.9800],"412308":[18.4700,73.9800],"410501":[18.7600,73.8600],"411025":[18.5200,73.8800]
+};
+
+/* =========================================================
+   STATE + storage (wrapped: storage can be unavailable)
+   ========================================================= */
+const store = {
+  get(k,d){try{const v=localStorage.getItem("btl_"+k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem("btl_"+k,JSON.stringify(v))}catch(e){}}
+};
+const ALL = [...OILS,...FOODS];
+const byId = Object.fromEntries(ALL.map(p=>[p.id,p]));
+const state = {
+  cart: store.get("cart",{}),            // { "o1|4": qty }
+  loc: store.get("loc",null),            // {pin, lat, lng, label}
+  chosenStore: store.get("chosen",null), // store id picked manually
+  sel: {},                               // selected size per product
+  oilTag:"All", foodTag:"All", oilQ:"", foodQ:""
+};
+
+const $ = s=>document.querySelector(s);
+const inr = n=>"₹"+Math.round(n).toLocaleString("en-IN");
+const esc = s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const sizesOf = p=>p.kind==="oil"?OIL_SIZES:FOOD_SIZES;
+
+/* ---------- distance ---------- */
+function km(a,b,c,d){const R=6371,r=x=>x*Math.PI/180;const dl=r(c-a),dn=r(d-b);const h=Math.sin(dl/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+function rankedStores(){
+  if(!state.loc) return STORES.map(s=>({...s,d:null}));
+  return STORES.map(s=>({...s,d:km(state.loc.lat,state.loc.lng,s.lat,s.lng)})).sort((a,b)=>a.d-b.d);
+}
+function nearestStore(){ return state.loc ? rankedStores()[0] : null; }
+function activeStore(){
+  if(state.chosenStore){const s=rankedStores().find(x=>x.id===state.chosenStore); if(s) return s;}
+  return nearestStore();
+}
+const fmtKm = d=> d==null ? "" : (d<1 ? "under 1 km" : "about "+d.toFixed(1)+" km");
+
+function lookupPin(pin){
+  if(PINS[pin]) return {lat:PINS[pin][0],lng:PINS[pin][1]};
+  const s=STORES.find(x=>x.pin===pin); if(s) return {lat:s.lat,lng:s.lng};
+  return null;
+}
+
+/* =========================================================
+   CART MATH
+   ========================================================= */
+function cartLines(){
+  return Object.entries(state.cart).filter(([,q])=>q>0).map(([k,q])=>{
+    const [id,si]=k.split("|"); const p=byId[id]; const s=sizesOf(p)[+si];
+    return {key:k,p,size:s,si:+si,qty:q,unit:p.prices[+si],total:p.prices[+si]*q};
+  });
+}
+function totals(){
+  const lines=cartLines();
+  const sub=lines.reduce((a,l)=>a+l.total,0);
+  const oilMl=lines.filter(l=>l.p.kind==="oil").reduce((a,l)=>a+l.size.q*l.qty,0);
+  const packs=Math.floor(oilMl/CONFIG.offer.everyMl);
+  const off=packs*CONFIG.offer.off;
+  const items=lines.reduce((a,l)=>a+l.qty,0);
+  return {lines,sub,oilMl,off,total:sub-off,items,toNext:CONFIG.offer.everyMl-(oilMl%CONFIG.offer.everyMl)};
+}
+const litres = ml => (ml/1000).toLocaleString("en-IN",{maximumFractionDigits:2})+" L";
+function saveCart(){store.set("cart",state.cart);renderCartBadge()}
+
+/* =========================================================
+   RENDER: store bar, finder, stores grid
+   ========================================================= */
+const pinIcon='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+function renderStoreBar(){
+  const s=activeStore(); const el=$("#storebar");
+  if(!s){
+    el.innerHTML=pinIcon+'<span>Delivering across Pune from 17 stores. Share your location or add your pincode to see your nearest store.</span><button data-act="detect" style="margin-left:auto">Detect location</button><button data-act="focus-pin" style="margin-left:0">Enter pincode</button>';
+  } else {
+    const label = state.chosenStore && nearestStore() && state.chosenStore!==nearestStore().id ? "Your chosen store" : "Nearest store";
+    el.innerHTML=pinIcon+`<span>${label}: <b>${esc(s.name)}</b></span><span class="pin">${s.pin}</span>`+
+      (s.d!=null?`<span class="dist">${fmtKm(s.d)} from ${esc(state.loc.label)}</span>`:"")+
+      '<button data-act="focus-pin">Change</button>';
+  }
+}
+function renderFinder(){
+  const r=$("#finderResult"); const s=nearestStore();
+  if(!s){r.classList.remove("on");r.innerHTML="";return}
+  r.classList.add("on");
+  const far = s.d>30 ? `<p class="warn">Our stores deliver within Pune and Pimpri-Chinchwad. The nearest one is about ${Math.round(s.d)} km from you, so call <a href="tel:+917414901815">74149 01815</a> to check if we can deliver.</p>` : "";
+  const est = state.loc.approx ? `<p class="warn">We estimated pincode ${esc(state.loc.pin)} from your location. If it's wrong, type the right one above.</p>` : "";
+  r.innerHTML=`<p>Nearest to ${esc(state.loc.label)}${state.loc.detected?" (detected)":""}</p><h3>${esc(s.name)}</h3><p>${esc(s.addr)} · <b>${s.pin}</b> · ${fmtKm(s.d)}</p>${est}${far}
+  <p style="margin-top:10px"><a href="#oils" class="btn mustard" style="display:inline-block;text-decoration:none">Start shopping</a> <button type="button" class="linkbtn" data-act="see-stores" style="margin-left:8px">See all stores by distance</button></p>`;
+}
+function renderStores(){
+  const list=rankedStores(); const near=nearestStore(); const act=activeStore();
+  $("#storesSub").textContent = state.loc ? `Sorted by distance from ${state.loc.label}. Tap a store to order from it.` : "Enter your pincode above and we'll sort these by distance from you.";
+  $("#storeGrid").innerHTML=list.map(s=>`
+    <article class="store ${act&&act.id===s.id?"near":""}">
+      <div class="top"><h3>${esc(s.name)}</h3>${s.d!=null?`<span class="km">${s.d<1?"&lt; 1":s.d.toFixed(1)} km</span>`:""}</div>
+      <address>${esc(s.addr)}</address>
+      <div class="foot"><span class="pinb">${s.pin}</span>
+        ${act&&act.id===s.id?`<span class="badge">${near&&near.id===s.id&&!state.chosenStore?"Nearest to you":"Ordering from here"}</span>`:`<button class="linkbtn" data-store="${s.id}">Order from this store</button>`}
+      </div>
+    </article>`).join("");
+}
+
+/* =========================================================
+   RENDER: product lists
+   ========================================================= */
+function swatch(p,cls="sw"){
+  if(p.kind==="oil") return `<svg class="${cls}" viewBox="0 0 44 52" aria-hidden="true"><path d="M22 3C30 15 38 24 38 33a16 16 0 0 1-32 0C6 24 14 15 22 3z" fill="${p.color}" stroke="rgba(28,42,31,.25)"/><ellipse cx="16" cy="32" rx="4" ry="7" fill="#fff" opacity=".35"/></svg>`;
+  return `<svg class="${cls}" viewBox="0 0 44 52" aria-hidden="true"><ellipse cx="22" cy="40" rx="18" ry="8" fill="${p.color}" opacity=".35"/><g fill="${p.color}" stroke="rgba(28,42,31,.25)"><ellipse cx="14" cy="34" rx="6" ry="4.5"/><ellipse cx="27" cy="36" rx="6" ry="4.5"/><ellipse cx="21" cy="27" rx="6" ry="4.5"/><ellipse cx="32" cy="27" rx="5" ry="4"/><ellipse cx="12" cy="24" rx="5" ry="4"/></g></svg>`;
+}
+function firstAvail(p){return p.prices.findIndex(x=>x!=null)}
+function inCartQty(p){return Object.entries(state.cart).filter(([k])=>k.startsWith(p.id+"|")).reduce((a,[,q])=>a+q,0)}
+function itemHTML(p){
+  const sel = state.sel[p.id] ?? firstAvail(p);
+  const sz = sizesOf(p);
+  const pills = p.prices.map((pr,i)=>pr==null?"":`<button class="size" role="radio" aria-checked="${i===sel}" data-pid="${p.id}" data-si="${i}">${sz[i].l}<b>${inr(pr)}</b>${p.kind==="oil"&&sz[i].q===5000?'<span class="deal">₹100 off</span>':""}</button>`).join("");
+  const q=inCartQty(p);
+  return `<article class="item" id="it-${p.id}">
+    ${swatch(p)}
+    <h3>${esc(p.name)}${p.loc?`<span class="loc" lang="hi">${esc(p.loc)}</span>`:""}</h3>
+    <div><p class="use">${esc(p.use)}</p><div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join("")}${p.kind==="oil"?'<span class="tag">Stone press</span>':""}</div></div>
+    <div class="buy">
+      <div class="sizes" role="radiogroup" aria-label="Pack size for ${esc(p.name)}">${pills}</div>
+      <div class="add">${q?`<span class="incart">${q} in cart</span>`:""}<button class="btn" data-add="${p.id}">Add to cart</button></div>
+    </div>
+  </article>`;
+}
+function renderList(kind){
+  const isOil = kind==="oil";
+  const src = isOil?OILS:FOODS;
+  const tag = isOil?state.oilTag:state.foodTag;
+  const q = (isOil?state.oilQ:state.foodQ).trim().toLowerCase();
+  const rows = src.filter(p=>(tag==="All"||p.tags.includes(tag)) && (!q || (p.name+" "+p.loc+" "+p.use).toLowerCase().includes(q)));
+  $(isOil?"#oilList":"#foodList").innerHTML = rows.length ? rows.map(itemHTML).join("") :
+    `<p class="empty">No ${isOil?"oils":"items"} match "${esc(q)}". Try another name, or <button class="linkbtn" data-clear="${kind}">clear the search</button>.</p>`;
+}
+function renderChips(kind){
+  const isOil=kind==="oil";
+  const tags = isOil?["All",CK,HS,MS,WL,PJ]:["All",DL,SD,SW,GH,MA];
+  const cur = isOil?state.oilTag:state.foodTag;
+  const src = isOil?OILS:FOODS;
+  $(isOil?"#oilChips":"#foodChips").innerHTML = tags.map(t=>{
+    const n = t==="All"?src.length:src.filter(p=>p.tags.includes(t)).length;
+    return `<button class="chip" aria-pressed="${t===cur}" data-chip="${kind}" data-tag="${t}">${t} (${n})</button>`;
+  }).join("");
+}
+function renderMore(){
+  $("#moreList").innerHTML=MORE.map(m=>`<li>${m}</li>`).join("");
+  $("#moreWa").href=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hello BTL Organic, please share today's price and pack sizes for: "+MORE.join(", "))}`;
+}
+function renderCartBadge(){
+  const t=totals(); $("#cartCount").textContent=t.items; $("#cartAmt").textContent=t.items?inr(t.total):"";
+}
+
+/* =========================================================
+   CART SCREEN
+   ========================================================= */
+let form = store.get("form",{name:"",phone:"",addr:"",pin:"",notes:""});
+function renderCart(){
+  const t=totals(); const body=$("#cartBody");
+  if(!t.lines.length){
+    body.innerHTML=`<div class="panel cart-empty" style="margin-top:22px"><h2>Your cart is empty</h2><p>Pick an oil or an organic staple and it will show up here.</p><button class="btn mustard" data-go="shop" data-to="oils">Browse oils</button></div>`;
+    return;
+  }
+  const pct = Math.min(100, (t.oilMl % CONFIG.offer.everyMl)/CONFIG.offer.everyMl*100);
+  const offerMsg = t.oilMl===0
+    ? `Add 5 L of oil in any mix of sizes to get ₹100 off.`
+    : `${t.off?`<b>You're saving ${inr(t.off)}</b> on ${litres(t.oilMl)} of oil. `:""}Add ${litres(t.toNext)} more oil to save ${t.off?"another ":""}₹100.`;
+  const ranked=rankedStores(); const act=activeStore();
+  /* latest pincode wins: one typed here at checkout, else the detected / entered one on the page */
+  if(!form.pin || !form.pinSrc){   /* every pincode action now writes form.pin; fill only if nothing set yet */
+    const fin=$("#pinInput").value;
+    const p=(state.loc && /^\d{6}$/.test(state.loc.pin||"")) ? state.loc.pin : (/^\d{6}$/.test(fin) ? fin : "");
+    if(p){ form.pin=p; form.pinSrc = state.loc && state.loc.pin===p && state.loc.detected ? "detected" : "entered"; store.set("form",form); }
+  }
+  const pinHint = form.pinSrc==="detected" ? "Detected from your location. Change it if you're ordering for another address."
+                : form.pinSrc==="entered" && form.pin ? "From the pincode you entered. Change it if you're ordering for another address." : "";
+
+  body.innerHTML=`
+  <div class="cartgrid">
+    <div class="panel">
+      <h2>${t.items} item${t.items>1?"s":""}</h2>
+      <div class="progress">${offerMsg}<div class="bar"><i style="width:${pct}%"></i></div></div>
+      ${t.lines.map(l=>`
+        <div class="line">
+          ${swatch(l.p)}
+          <div>
+            <div class="nm">${esc(l.p.name)}</div>
+            <div class="sz">${l.size.l} · ${inr(l.unit)} each</div>
+            <span class="stepper"><button aria-label="Remove one" data-dec="${l.key}">−</button><span>${l.qty}</span><button aria-label="Add one" data-inc="${l.key}">+</button></span>
+            <button class="linkbtn remove" data-rm="${l.key}">Remove</button>
+          </div>
+          <div class="rt"><b>${inr(l.total)}</b></div>
+        </div>`).join("")}
+      <div class="sum">
+        <span>Subtotal</span><span>${inr(t.sub)}</span>
+        ${t.off?`<span class="off">5 L oil offer</span><span class="off">−${inr(t.off)}</span>`:""}
+        <span>Home delivery</span><span class="off">Free</span>
+        <span class="tot">Total</span><span class="tot">${inr(t.total)}</span>
+      </div>
+    </div>
+
+    <form class="panel" id="checkout" novalidate>
+      <h2>Delivery details</h2>
+      <label class="field" id="f-name"><span>Full name</span><input name="name" autocomplete="name" value="${esc(form.name)}"><p class="msg">Enter your name so the store knows who to deliver to.</p></label>
+      <label class="field" id="f-phone"><span>Mobile number <small>(WhatsApp preferred)</small></span><input name="phone" inputmode="numeric" maxlength="10" autocomplete="tel-national" placeholder="10-digit mobile" value="${esc(form.phone)}"><p class="msg">Enter a 10-digit Indian mobile number starting with 6, 7, 8 or 9.</p></label>
+      <label class="field" id="f-addr"><span>Delivery address</span><textarea name="addr" rows="2" autocomplete="street-address" placeholder="Flat, building, street, area">${esc(form.addr)}</textarea><p class="msg">Enter the address where we should deliver.</p></label>
+      <div class="two">
+        <div class="field" id="f-pin"><label for="ckPin" style="display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:15px;margin-bottom:4px">Pincode <button type="button" class="linkbtn" data-act="detect" style="font-size:14px">Detect</button></label><input id="ckPin" name="pin" inputmode="numeric" maxlength="6" autocomplete="postal-code" value="${esc(form.pin)}"><p class="hint" id="ckPinMsg" aria-live="polite">${pinHint}</p><p class="msg">Enter a 6-digit pincode.</p></div>
+        <label class="field" id="f-store"><span>Deliver from</span>
+          <select name="store">
+            ${ranked.map(s=>`<option value="${s.id}" ${act&&act.id===s.id?"selected":""}>${esc(s.name)} (${s.pin})${s.d!=null?" · "+(s.d<1?"<1":s.d.toFixed(1))+" km":""}</option>`).join("")}
+          </select><p class="msg">Choose a store.</p></label>
+      </div>
+      <div class="storepick" id="storePick"></div>
+      <label class="field"><span>Notes for the store <small>(optional)</small></span><input name="notes" value="${esc(form.notes)}" placeholder="e.g. deliver after 6 pm"></label>
+      <button class="btn big mustard" type="submit">Confirm order · ${inr(t.total)}</button>
+      <p class="note">Next, you'll send this order to the store on WhatsApp in one tap. Pay on delivery by cash or UPI.</p>
+    </form>
+  </div>`;
+  updateStorePick();
+}
+function updateStorePick(){
+  const sel=document.querySelector('#checkout select[name=store]'); if(!sel) return;
+  const s=rankedStores().find(x=>x.id===+sel.value); const near=nearestStore();
+  $("#storePick").innerHTML = s ? `<b>${esc(s.name)} · ${s.pin}</b>${esc(s.addr)}${near?`<br><small>${near.id===s.id?"Nearest store to your pincode":"You picked this store. Nearest is "+esc(near.name)+" ("+fmtKm(near.d)+")"}</small>`:""}` : "";
+}
+
+function validate(f){
+  const v={name:f.name.value.trim(),phone:f.phone.value.replace(/\D/g,""),addr:f.addr.value.trim(),pin:f.pin.value.trim(),store:+f.store.value,notes:f.notes.value.trim()};
+  const bad={name:v.name.length<2,phone:!/^[6-9]\d{9}$/.test(v.phone),addr:v.addr.length<6,pin:!/^\d{6}$/.test(v.pin),store:!v.store};
+  Object.entries(bad).forEach(([k,b])=>$("#f-"+k).classList.toggle("bad",b));
+  const first=Object.keys(bad).find(k=>bad[k]);
+  if(first){ $("#f-"+first+" input, #f-"+first+" textarea, #f-"+first+" select").focus(); return null; }
+  return v;
+}
+
+/* =========================================================
+   SUCCESS SCREEN
+   ========================================================= */
+function placeOrder(v){
+  const t=totals(); const s=STORES.find(x=>x.id===v.store);
+  const now=new Date();
+  const id="BTL-"+String(now.getFullYear()).slice(2)+String(now.getMonth()+1).padStart(2,"0")+String(now.getDate()).padStart(2,"0")+"-"+Math.floor(1000+Math.random()*9000);
+  const order={id,at:now.toISOString(),customer:{name:v.name,phone:v.phone,address:v.addr,pincode:v.pin,notes:v.notes},
+    store:{name:s.name,pincode:s.pin,address:s.addr},
+    items:t.lines.map(l=>({product:l.p.name,size:l.size.l,qty:l.qty,unit:l.unit,total:l.total})),
+    subtotal:t.sub,discount:t.off,total:t.total};
+  if(CONFIG.orderEndpoint){ try{ fetch(CONFIG.orderEndpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(order)}).catch(()=>{}); }catch(e){} }
+
+  const msg=buildWhatsApp({id,now,v,s,t});
+  const wa=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+
+  $("#doneBody").innerHTML=`
+    <h1 id="doneTitle" tabindex="-1">One last step: send your order on WhatsApp</h1>
+    <span class="oid">Order ${id} · ${inr(t.total)}</span>
+    <p class="lede" id="doneLede">Your order is saved, but the store doesn't have it yet. Send it on WhatsApp and ${esc(s.name)} will confirm your delivery.</p>
+    <ol class="steps" aria-label="Order progress">
+      <li class="done"><span class="dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr">Done:</span></span>
+        <div><b>Order saved</b><small>${t.items} item${t.items>1?"s":""} for ${esc(v.name)}, delivering to pincode ${esc(v.pin)}</small></div></li>
+      <li class="now" id="stepWa"><span class="dot">2<span class="sr">, to do:</span></span>
+        <div><b id="waTitle">Send it to the store on WhatsApp</b>
+          <small id="waText">We've written the message for you. WhatsApp opens with it ready, you just press Send.</small>
+          <div class="act">
+            <a class="btn wa big" id="waBtn" href="${wa}" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19l-4 1z"/><path d="M9 9.5c.3 2.3 2.2 4.4 4.7 5" stroke-linecap="round"/></svg><span>Send order on WhatsApp</span></a>
+            <details class="preview"><summary>See the message that will be sent</summary><div class="bubble">${waHTML(msg)}</div></details>
+            <button class="linkbtn" id="copyBtn" type="button">WhatsApp didn't open? Copy the order and send it to 74149 01815</button>
+          </div></div></li>
+      <li id="stepStore"><span class="dot">3</span>
+        <div><b>Store confirms your delivery</b><small>${esc(s.name)} will call or message you on ${esc(v.phone.replace(/(\d{5})(\d{5})/,"$1 $2"))} with a delivery time. Pay on delivery.</small></div></li>
+    </ol>
+    <div class="dgrid">
+      <div class="panel"><h2>Customer</h2>
+        <dl class="dl"><dt>Name</dt><dd>${esc(v.name)}</dd><dt>Mobile</dt><dd>${esc(v.phone.replace(/(\d{5})(\d{5})/,"$1 $2"))}</dd><dt>Address</dt><dd>${esc(v.addr)}</dd><dt>Ordered from</dt><dd>Pincode ${esc(v.pin)}</dd>${v.notes?`<dt>Notes</dt><dd>${esc(v.notes)}</dd>`:""}</dl>
+      </div>
+      <div class="panel"><h2>Delivering store</h2>
+        <dl class="dl"><dt>Store</dt><dd>${esc(s.name)}</dd><dt>Pincode</dt><dd>${s.pin}</dd><dt>Address</dt><dd>${esc(s.addr)}</dd><dt>Phone</dt><dd><a href="tel:+917414901815">74149 01815</a></dd></dl>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:14px"><h2>Order summary</h2>
+      ${t.lines.map(l=>`<div class="line">${swatch(l.p)}<div><div class="nm">${esc(l.p.name)}</div><div class="sz">${l.size.l} × ${l.qty}</div></div><div class="rt"><b>${inr(l.total)}</b></div></div>`).join("")}
+      <div class="sum"><span>Subtotal</span><span>${inr(t.sub)}</span>${t.off?`<span class="off">5 L oil offer</span><span class="off">−${inr(t.off)}</span>`:""}<span>Home delivery</span><span class="off">Free</span><span class="tot">Total to pay</span><span class="tot">${inr(t.total)}</span></div>
+    </div>
+    <div class="actions"><button class="btn ghost" data-go="shop">Back to shop</button></div>`;
+  pending={id,total:t.total,wa,msg,store:s.name,sent:false};
+  store.set("lastOrder",{...order,wa,msg,sent:false}); store.set("pending",pending);
+  $("#waBtn").addEventListener("click",markSent);
+  $("#copyBtn").addEventListener("click",()=>copyOrder(msg));
+  state.cart={}; saveCart(); renderList("oil"); renderList("food"); renderPending();
+  go("success"); setTimeout(()=>{const h=$("#doneTitle"); h&&h.focus()},50);
+}
+
+/* ---------- WhatsApp order message ----------
+   Uses WhatsApp formatting: *bold*, _italic_. Kept under ~32 chars
+   per line where possible so it reads well on a phone. */
+function buildWhatsApp({id,now,v,s,t}){
+  const RULE="━━━━━━━━━━━━━━━━";
+  const when=now.toLocaleString("en-IN",{day:"numeric",month:"short",year:"numeric",hour:"numeric",minute:"2-digit",hour12:true});
+  const phone=v.phone.replace(/(\d{5})(\d{5})/,"$1 $2");
+  const ranked=rankedStores().find(x=>x.id===s.id);
+  const dist=ranked && ranked.d!=null ? `Distance: ${ranked.d<1?"under 1":"about "+ranked.d.toFixed(1)} km from customer` : null;
+  const map=state.loc && state.loc.detected ? `Location pin: https://maps.google.com/?q=${state.loc.lat.toFixed(5)},${state.loc.lng.toFixed(5)}` : null;
+
+  const group=(kind,title)=>{
+    const ls=t.lines.filter(l=>l.p.kind===kind); if(!ls.length) return [];
+    return [`_${title}_`, ...ls.map(l=>{ n++; return `${n}. ${l.p.name} – ${l.size.l}\n     ${l.qty} × ${inr(l.unit)} = *${inr(l.total)}*`; }), ""];
+  };
+  let n=0;
+  const L=[
+    `🛒 *NEW ORDER · BTL ORGANIC*`,
+    `Order ID: *${id}*`,
+    `Date: ${when}`,
+    RULE,
+    ``,
+    `🏪 *DELIVER FROM*`,
+    s.name,
+    `Store pincode: ${s.pin}`,
+    dist,
+    ``,
+    `👤 *CUSTOMER*`,
+    `Name: ${v.name}`,
+    `Mobile: ${phone}`,
+    `Address: ${v.addr}`,
+    `Pincode: ${v.pin}`,
+    map,
+    v.notes ? `Note: ${v.notes}` : null,
+    ``,
+    `📦 *ITEMS (${t.lines.length} product${t.lines.length>1?"s":""}, ${t.items} pack${t.items>1?"s":""})*`,
+    ...group("oil","Stone press oils"),
+    ...group("food","Organic foods"),
+    RULE,
+    `Subtotal: ${inr(t.sub)}`,
+    t.off ? `5 L oil offer: −${inr(t.off)}  (${litres(t.oilMl)} oil)` : null,
+    `Delivery: FREE`,
+    `💰 *TOTAL TO PAY: ${inr(t.total)}*`,
+    `Payment: Cash / UPI on delivery`,
+    RULE,
+    ``,
+    `Please confirm my order and delivery time. Thank you!`
+  ];
+  return L.filter(x=>x!==null).join("\n").replace(/\n{3,}/g,"\n\n");
+}
+
+/* ---------- WhatsApp hand-off state ---------- */
+let pending = store.get("pending",null);
+/* render WhatsApp *bold* / _italic_ for the on-page preview */
+function waHTML(m){
+  return esc(m).replace(/\*([^*\n]+)\*/g,"<b>$1</b>").replace(/(^|\s)_([^_\n]+)_/g,"$1<i>$2</i>");
+}
+function markSent(){
+  if(!pending) return;
+  pending.sent=true; store.set("pending",pending); renderPending();
+  const st=$("#stepWa"); if(!st) return;
+  st.className="done"; st.querySelector(".dot").innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr">Done:</span>';
+  $("#waTitle").textContent="WhatsApp opened with your order";
+  $("#waText").textContent="Make sure you pressed Send in WhatsApp. If you didn't, tap below to open it again.";
+  const b=$("#waBtn"); b.classList.remove("big"); b.classList.replace("wa","ghost"); b.querySelector("span").textContent="Open WhatsApp again";
+  $("#stepStore").className="now";
+  $("#doneTitle").textContent="Thank you! The store will confirm your delivery";
+  $("#doneLede").textContent=`Once your WhatsApp message is sent, ${pending.store} will call or message you with a delivery time.`;
+}
+async function copyOrder(msg){
+  try{ await navigator.clipboard.writeText(msg); toast("Order copied. Paste it in WhatsApp to 74149 01815"); }
+  catch(e){ toast("Couldn't copy. Please call 74149 01815 to place the order"); }
+}
+function renderPending(){
+  const bar=$("#pendingBar");
+  const onSuccess=$("#success").classList.contains("on");
+  if(!pending || pending.sent || onSuccess){ bar.hidden=true; bar.innerHTML=""; return; }
+  bar.hidden=false;
+  bar.innerHTML=`<div class="wrap"><span>Order ${esc(pending.id)} (${inr(pending.total)}) hasn't been sent to the store yet.</span><a href="${pending.wa}" target="_blank" rel="noopener" id="pendWa">Send on WhatsApp</a><button class="linkbtn" id="pendX" style="color:var(--ink)">Dismiss</button></div>`;
+  $("#pendWa").addEventListener("click",markSent);
+  $("#pendX").addEventListener("click",()=>{pending=null;store.set("pending",null);renderPending()});
+}
+
+/* =========================================================
+   NAV + EVENTS
+   ========================================================= */
+function go(screen,anchor){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("on",s.id===screen));
+  if(screen==="cart") renderCart();
+  renderPending();
+  if(anchor){ setTimeout(()=>{const el=document.getElementById(anchor); el&&el.scrollIntoView()},10) } else window.scrollTo({top:0,behavior:"instant"});
+}
+let toastT;
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("on"),2200)}
+
+function setLocation(loc){
+  state.loc=loc; state.chosenStore=null; store.set("loc",loc); store.set("chosen",null);
+  /* keep the delivery form's pincode in step with the latest page pincode */
+  if(loc.pin){ form.pin=loc.pin; form.pinSrc=loc.detected?"detected":"entered"; store.set("form",form); }
+  renderStoreBar(); renderFinder(); renderStores();
+}
+
+$("#finder").addEventListener("submit",e=>{
+  e.preventDefault();
+  const pin=$("#pinInput").value.trim(); const err=$("#pinErr");
+  if(!/^\d{6}$/.test(pin)){ err.textContent="Enter a 6-digit pincode, for example 411045."; return; }
+  const c=lookupPin(pin);
+  if(!c){
+    form.pin=pin; form.pinSrc="entered"; store.set("form",form);   // still use it for delivery
+    err.textContent=`We don't have ${pin} on our delivery map yet. Use your current location, or pick a store from the list below.`; return; }
+  err.textContent=""; setLocation({pin,lat:c.lat,lng:c.lng,label:pin});
+  form.pin=pin; store.set("form",form);
+});
+$("#pinInput").addEventListener("input",e=>{
+  e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);
+  if(e.target.value.length===6) $("#finder").requestSubmit();   // find the store as soon as 6 digits are in
+});
+/* =========================================================
+   LOCATION PERMISSION + PINCODE DETECTION
+   1. Ask the browser for the user's coordinates (permission prompt)
+   2. Reverse-geocode coordinates -> 6-digit pincode
+      (BigDataCloud client API, then OpenStreetMap Nominatim,
+       then offline estimate from the nearest known Pune pincode)
+   3. Nearest store is ranked using the real GPS coordinates
+   ========================================================= */
+const REVERSE = [
+  async (lat,lng,signal)=>{
+    const r=await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`,{signal});
+    const j=await r.json(); return {pin:j.postcode, area:j.locality||j.city};
+  },
+  async (lat,lng,signal)=>{
+    const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=18&addressdetails=1&lat=${lat}&lon=${lng}`,{signal,headers:{"Accept-Language":"en"}});
+    const j=await r.json(); const a=j.address||{}; return {pin:a.postcode, area:a.suburb||a.neighbourhood||a.city_district||a.city};
+  }
+];
+async function pinFromCoords(lat,lng){
+  for(const fn of REVERSE){
+    const ac=new AbortController(); const t=setTimeout(()=>ac.abort(),6000);
+    try{
+      const r=await fn(lat,lng,ac.signal);
+      const pin=String(r.pin||"").replace(/\s/g,"");
+      if(/^\d{6}$/.test(pin)) return {pin,area:r.area||"",approx:false};
+    }catch(e){} finally{clearTimeout(t)}
+  }
+  let best=null;
+  for(const [p,[a,b]] of Object.entries(PINS)){const d=km(lat,lng,a,b); if(!best||d<best.d) best={pin:p,d}}
+  return best && best.d<8 ? {pin:best.pin,area:"",approx:true} : null;
+}
+
+let detecting=false;
+function locMsg(text,isError){
+  const e=$("#pinErr"); e.textContent=text; e.classList.toggle("info",!isError);
+  const c=$("#ckPinMsg"); if(c) c.textContent=text;
+}
+function setBusy(on){
+  document.querySelectorAll('[data-act="detect"]').forEach(b=>b.setAttribute("aria-busy",on));
+  const s=$("#geoBtn span"); if(s) s.textContent=on?"Detecting…":"Detect my pincode";
+}
+async function detect(){
+  if(detecting) return;
+  if(!("geolocation" in navigator)){ locMsg("This browser can't share location. Type your 6-digit pincode instead.",true); return; }
+  if(!window.isSecureContext){ locMsg("Location only works when the site is opened over https. Type your pincode instead.",true); return; }
+  detecting=true; setBusy(true); locMsg("Waiting for you to allow location access…");
+  let pos;
+  try{
+    pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true,timeout:15000,maximumAge:300000}));
+  }catch(err){
+    detecting=false; setBusy(false);
+    locMsg(err.code===1
+      ? "Location is blocked for this site. Tap the lock icon next to the web address, set Location to Allow, then try again. Or type your pincode."
+      : err.code===3 ? "Finding your location took too long. Try again, or type your pincode."
+      : "We couldn't get your location right now. Type your pincode instead.", true);
+    return;
+  }
+  locMsg("Location found. Detecting your pincode…");
+  const {latitude:lat,longitude:lng}=pos.coords;
+  const r=await pinFromCoords(lat,lng);
+  detecting=false; setBusy(false);
+  if(r){
+    $("#pinInput").value=r.pin; form.pin=r.pin; store.set("form",form);
+    const ck=$("#ckPin"); if(ck){ ck.value=r.pin; ck.closest(".field").classList.remove("bad"); }
+    locMsg("");
+    setLocation({pin:r.pin,lat,lng,label:r.area?`${r.area} ${r.pin}`:r.pin,detected:true,approx:r.approx});
+    toast(`Pincode ${r.pin} detected`);
+  } else {
+    locMsg("We found your location but not its pincode. Your nearest store is shown below. Type your pincode if it's wrong.");
+    setLocation({pin:"",lat,lng,label:"your location",detected:true});
+  }
+  refreshCheckoutStores();
+}
+
+/* soft ask on first visit, so the browser prompt only appears after the user says yes */
+function openAsk(){ const a=$("#locAsk"); a.hidden=false; $("#askAllow").focus(); }
+function closeAsk(dismissed){ $("#locAsk").hidden=true; if(dismissed) store.set("askDismissed",true); }
+$("#askAllow").addEventListener("click",()=>{ closeAsk(false); detect(); });
+$("#askPin").addEventListener("click",()=>{ closeAsk(true); $("#pinInput").focus(); });
+$("#locAsk").addEventListener("click",e=>{ if(e.target.id==="locAsk") closeAsk(true); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !$("#locAsk").hidden) closeAsk(true); });
+
+async function initLocation(){
+  if(state.loc) return;                       // already know where they are
+  let st="prompt";
+  try{ if(navigator.permissions){ st=(await navigator.permissions.query({name:"geolocation"})).state; } }catch(e){}
+  if(st==="granted"){ detect(); return; }     // allowed before: detect silently
+  if(st==="denied" || store.get("askDismissed",false)) return;
+  setTimeout(()=>{ if(!state.loc) openAsk(); },900);
+}
+
+function refreshCheckoutStores(){
+  const sel=document.querySelector('#checkout select[name=store]'); if(!sel) return;
+  const ranked=rankedStores(); const act=activeStore();
+  sel.innerHTML=ranked.map(s=>`<option value="${s.id}" ${act&&act.id===s.id?"selected":""}>${esc(s.name)} (${s.pin})${s.d!=null?" · "+(s.d<1?"<1":s.d.toFixed(1))+" km":""}</option>`).join("");
+  updateStorePick();
+}
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button,a"); if(!t) return;
+  const d=t.dataset;
+  if(d.go){ if(t.tagName==="A"){e.preventDefault(); go(d.go,(t.getAttribute("href")||"").replace("#","")||null);} else go(d.go,d.to||null); return; }
+  if(d.act==="detect"){ detect(); return; }
+  if(d.act==="focus-pin"){ go("shop","home"); setTimeout(()=>$("#pinInput").focus(),80); return; }
+  if(d.act==="see-stores"){ $("#stores").scrollIntoView(); return; }
+  if(d.chip){ if(d.chip==="oil") state.oilTag=d.tag; else state.foodTag=d.tag; renderChips(d.chip); renderList(d.chip); return; }
+  if(d.clear){ if(d.clear==="oil"){state.oilQ="";$("#oilSearch").value=""} else {state.foodQ="";$("#foodSearch").value=""} renderList(d.clear); return; }
+  if(d.pid){ state.sel[d.pid]=+d.si; const p=byId[d.pid]; document.getElementById("it-"+p.id).outerHTML=itemHTML(p); document.querySelector(`#it-${p.id} [data-si="${d.si}"]`).focus(); return; }
+  if(d.add){ const p=byId[d.add]; const si=state.sel[p.id] ?? firstAvail(p); const k=p.id+"|"+si; state.cart[k]=(state.cart[k]||0)+1; saveCart();
+    document.getElementById("it-"+p.id).outerHTML=itemHTML(p);
+    const t=totals(); toast(`Added ${p.name} ${sizesOf(p)[si].l}`+(p.kind==="oil"&&t.off?` · offer saving ${inr(t.off)}`:"")); return; }
+  if(d.inc){ state.cart[d.inc]++; saveCart(); renderCart(); return; }
+  if(d.dec){ state.cart[d.dec]--; if(state.cart[d.dec]<=0) delete state.cart[d.dec]; saveCart(); renderCart(); return; }
+  if(d.rm){ delete state.cart[d.rm]; saveCart(); renderCart(); return; }
+  if(d.store){ state.chosenStore=+d.store; store.set("chosen",state.chosenStore); renderStoreBar(); renderStores(); toast("You'll order from "+STORES.find(s=>s.id===+d.store).name); return; }
+});
+$("#cartBtn").addEventListener("click",()=>go("cart"));
+$("#oilSearch").addEventListener("input",e=>{state.oilQ=e.target.value;renderList("oil")});
+$("#foodSearch").addEventListener("input",e=>{state.foodQ=e.target.value;renderList("food")});
+
+document.addEventListener("input",e=>{
+  const f=e.target.form; if(!f||f.id!=="checkout") return;
+  if(e.target.name==="phone") e.target.value=e.target.value.replace(/\D/g,"").slice(0,10);
+  if(e.target.name==="pin") e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);
+  if(form.hasOwnProperty(e.target.name)){ form[e.target.name]=e.target.value; store.set("form",form); }
+  e.target.closest(".field")?.classList.remove("bad");
+  /* typing a known pincode at checkout re-sorts the store list */
+  if(e.target.name==="pin" && /^\d{6}$/.test(e.target.value)){
+    const c=lookupPin(e.target.value);
+    if(c && (!state.loc || state.loc.pin!==e.target.value)){ setLocation({pin:e.target.value,lat:c.lat,lng:c.lng,label:e.target.value});
+      $("#pinInput").value=e.target.value; refreshCheckoutStores(); toast("Nearest store: "+rankedStores()[0].name);
+    }
+  }
+  if(e.target.name==="pin"){ form.pin=e.target.value; form.pinSrc="checkout"; store.set("form",form); const h=$("#ckPinMsg"); if(h) h.textContent=""; }
+});
+document.addEventListener("change",e=>{
+  if(e.target.name==="store" && e.target.form?.id==="checkout"){ state.chosenStore=+e.target.value; store.set("chosen",state.chosenStore); renderStoreBar(); renderStores(); updateStorePick(); }
+});
+document.addEventListener("submit",e=>{
+  if(e.target.id!=="checkout") return; e.preventDefault();
+  const v=validate(e.target); if(v) placeOrder(v);
+});
+
+/* ---------- init ---------- */
+renderStoreBar(); renderChips("oil"); renderChips("food"); renderList("oil"); renderList("food");
+renderMore(); renderStores(); renderFinder(); renderCartBadge();
+if(state.loc && state.loc.pin) $("#pinInput").value=state.loc.pin;
+initLocation(); renderPending();
+</script>
+</body>
+</html>
