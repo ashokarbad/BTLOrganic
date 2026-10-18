@@ -107,6 +107,12 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 .detect[aria-busy="true"]{opacity:.7;cursor:progress}
 .detect[aria-busy="true"] svg{animation:pulse 1s ease-in-out infinite}
 @keyframes pulse{50%{transform:scale(.8);opacity:.5}}
+.finder.compact>label,.finder.compact>.row,.finder.compact>.geo,.finder.compact>.err{display:none}
+.finder.compact .result{border-top:0;padding-top:0;margin-top:0}
+.fc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600;font-size:15px;color:var(--leaf);margin-bottom:4px}
+.fc-edit{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:3px 11px;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer}
+.fc-edit:hover{border-color:var(--leaf);color:var(--leaf)}
+.fc-deliv{margin-top:6px;font-size:15px;color:var(--ink)!important}
 .finder .warn{margin-top:10px;background:var(--mustard-soft);border-radius:8px;padding:8px 12px;font-size:14.5px;color:var(--ink)}
 .hint{font-size:14px;color:var(--ink-2);margin-top:4px;min-height:0}
 /* location permission ask */
@@ -138,9 +144,13 @@ section.cat{padding:56px 0 20px;scroll-margin-top:70px}
 .mcount{font-size:13.5px;color:var(--ink-2);margin-top:4px}
 .mcount:empty{display:none}
 @media(max-width:719px){
-  .msearch.on{display:block}
+  /* floats just below the sticky header, so showing it never pushes the page (no jump / flicker) */
+  .msearch{display:block;position:absolute;left:0;right:0;top:100%;background:var(--paper);
+    border-bottom:1px solid var(--line);box-shadow:0 10px 18px -14px rgba(28,42,31,.45);
+    opacity:0;transform:translateY(-6px);visibility:hidden;pointer-events:none;
+    transition:opacity .18s ease,transform .18s ease,visibility 0s linear .18s}
+  .msearch.on{opacity:1;transform:none;visibility:visible;pointer-events:auto;transition:opacity .18s ease,transform .18s ease}
   section.cat{scroll-margin-top:128px}
-  .list{scroll-margin-top:136px}
 }
 .cat-head{display:grid;gap:8px;margin-bottom:22px}
 @media(min-width:820px){.cat-head{grid-template-columns:1fr auto;align-items:end}}
@@ -448,7 +458,7 @@ footer .fine{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);padding
       <p><a href="#foods" data-go="shop">Organic foods</a></p>
       <p><a href="#stores" data-go="shop">Store locations</a></p>
     </div>
-    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area. <span id="ver">Site version 8 (18 Oct 2026)</span></p>
+    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area. <span id="ver">Site version 10 (19 Oct 2026)</span></p>
   </div>
 </footer>
 
@@ -669,13 +679,24 @@ function renderStoreBar(){
   }
 }
 function renderFinder(){
-  const r=$("#finderResult"); const s=nearestStore();
+  const r=$("#finderResult"); const f=$("#finder"); const s=activeStore();
+  const compact = !!s && !state.editingLoc;          // location known: show the store, hide the form
+  f.classList.toggle("compact", compact);
   if(!s){r.classList.remove("on");r.innerHTML="";return}
   r.classList.add("on");
-  const far = s.d>30 ? `<p class="warn">Our stores deliver within Pune and Pimpri-Chinchwad. The nearest one is about ${Math.round(s.d)} km from you, so call <a href="tel:+917414901815">74149 01815</a> to check if we can deliver.</p>` : "";
-  const est = state.loc.approx ? `<p class="warn">Please check pincode ${esc(state.loc.pin)}. If it's not your delivery pincode, type the right one above.</p>` : "";
-  r.innerHTML=`<p>Nearest to ${esc(state.loc.label)}${state.loc.detected?" (detected)":""}</p><h3>${esc(s.name)}</h3><p>${esc(s.addr)} · <b>${s.pin}</b> · ${fmtKm(s.d)}</p>${est}${far}
-  <p style="margin-top:10px"><a href="#oils" class="btn mustard" style="display:inline-block;text-decoration:none">Start shopping</a> <button type="button" class="linkbtn" data-act="see-stores" style="margin-left:8px">See all stores by distance</button></p>`;
+  const L=state.loc, near=nearestStore();
+  const chosen = state.chosenStore && near && near.id!==s.id;
+  const far = s.d>30 ? `<p class="warn">Our stores deliver within Pune and Pimpri-Chinchwad. This store is about ${Math.round(s.d)} km from you, so call <a href="tel:+917414901815">74149 01815</a> to check if we can deliver.</p>` : "";
+  const est = L.approx ? `<p class="warn">Please check pincode ${esc(L.pin)}. If it's not your delivery pincode, tap Edit and type the right one.</p>` : "";
+  const noPin = !L.pin ? `<p class="warn">${L.coarse?"Your device shared only an approximate location. ":""}Add your delivery pincode so we can confirm the right store.</p>` : "";
+  const deliv = L.pin ? `Delivering to <b>${esc(L.pin)}</b>${L.area?" "+esc(L.area):""}${L.detected?" (detected)":""}` : `Delivering to your current location`;
+  r.innerHTML=`
+    <div class="fc-head"><span>${chosen?"Your chosen store":"Your nearest store"}</span>
+      ${compact?`<button type="button" class="fc-edit" data-act="edit-loc" aria-label="Change delivery location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>${L.pin?"Edit":"Add pincode"}</button>`:""}</div>
+    <h3>${esc(s.name)}</h3>
+    <p>${esc(s.addr)} · <b>${s.pin}</b>${s.d!=null?" · "+fmtKm(s.d)+" away":""}</p>
+    <p class="fc-deliv">${deliv}</p>${noPin}${est}${far}
+    <p style="margin-top:12px"><a href="#oils" class="btn mustard">Start shopping</a> <button type="button" class="linkbtn" data-act="see-stores" style="margin-left:8px">See all stores</button></p>`;
 }
 function renderStores(){
   const list=rankedStores(); const near=nearestStore(); const act=activeStore();
@@ -989,7 +1010,7 @@ $("#finder").addEventListener("submit",e=>{
   if(!c){
     form.pin=pin; form.pinSrc="entered"; store.set("form",form);   // still use it for delivery
     err.textContent=`We don't have ${pin} on our delivery map yet. Use your current location, or pick a store from the list below.`; return; }
-  err.textContent=""; setLocation({pin,lat:c.lat,lng:c.lng,label:pin});
+  err.textContent=""; state.editingLoc=false; setLocation({pin,lat:c.lat,lng:c.lng,label:pin});
   form.pin=pin; store.set("form",form);
 });
 $("#pinInput").addEventListener("focus",e=>e.target.select());
@@ -1073,6 +1094,7 @@ async function detect(){
   if(r){
     $("#pinInput").value=r.pin; form.pin=r.pin; store.set("form",form);
     const ck=$("#ckPin"); if(ck){ ck.value=r.pin; ck.closest(".field").classList.remove("bad"); }
+    state.editingLoc=false;
     setLocation({pin:r.pin,lat,lng,area:r.area||"",label:r.area?`${r.area} ${r.pin}`:r.pin,detected:true,approx:r.approx});
     locMsg("Detected from your location. Not right? Type your delivery pincode.");
     toast(`Pincode ${r.pin} detected`);
@@ -1080,6 +1102,7 @@ async function detect(){
     /* we know where they are (nearest store is accurate) but not the exact pincode: leave it blank */
     $("#pinInput").value="";
     if(form.pinSrc!=="checkout"){ form.pin=""; form.pinSrc=""; store.set("form",form); const ck=$("#ckPin"); if(ck) ck.value=""; }
+    state.editingLoc=false;
     setLocation({pin:"",lat,lng,label:"your location",detected:true,coarse});
     locMsg(coarse
       ? `Your device only shared an approximate location (within about ${Math.round(accuracy/1000)} km). Please type your delivery pincode so we pick the right store.`
@@ -1127,7 +1150,7 @@ document.addEventListener("click",e=>{
   const d=t.dataset;
   if(d.go){ if(t.tagName==="A"){e.preventDefault(); go(d.go,(t.getAttribute("href")||"").replace("#","")||null);} else go(d.go,d.to||null); return; }
   if(d.act==="detect"){ detect(); return; }
-  if(d.act==="focus-pin"){ go("shop","home"); setTimeout(()=>$("#pinInput").focus(),80); return; }
+  if(d.act==="focus-pin" || d.act==="edit-loc"){ state.editingLoc=true; renderFinder(); go("shop","home"); setTimeout(()=>$("#pinInput").focus(),80); return; }
   if(d.act==="see-stores"){ $("#stores").scrollIntoView(); return; }
   if(d.chip){ if(d.chip==="oil") state.oilTag=d.tag; else state.foodTag=d.tag; renderChips(d.chip); renderList(d.chip); return; }
   if(d.clear){ if(d.clear==="oil"){state.oilQ="";$("#oilSearch").value=""} else {state.foodQ="";$("#foodSearch").value=""} $("#mSearch").value=""; $("#mCount").textContent=""; renderList(d.clear); return; }
@@ -1138,7 +1161,7 @@ document.addEventListener("click",e=>{
   if(d.inc){ state.cart[d.inc]++; saveCart(); renderCart(); return; }
   if(d.dec){ state.cart[d.dec]--; if(state.cart[d.dec]<=0) delete state.cart[d.dec]; saveCart(); renderCart(); return; }
   if(d.rm){ delete state.cart[d.rm]; saveCart(); renderCart(); return; }
-  if(d.store){ state.chosenStore=+d.store; store.set("chosen",state.chosenStore); renderStoreBar(); renderStores(); toast("You'll order from "+STORES.find(s=>s.id===+d.store).name); return; }
+  if(d.store){ state.chosenStore=+d.store; store.set("chosen",state.chosenStore); renderStoreBar(); renderStores(); renderFinder(); toast("You'll order from "+STORES.find(s=>s.id===+d.store).name); return; }
 });
 $("#cartBtn").addEventListener("click",()=>go("cart"));
 $("#oilSearch").addEventListener("input",e=>{state.oilQ=e.target.value;renderList("oil")});
@@ -1159,15 +1182,18 @@ $("#mSearch").addEventListener("input",e=>{
 });
 $("#mSearch").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); e.target.blur(); } });  // close keyboard
 function scrollBelowHeader(el){
-  const h=$("header.top").getBoundingClientRect().height;
-  window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - h - 12, behavior:"smooth"});
+  const bar=$("#msearch");
+  const bottom = bar.classList.contains("on") ? bar.getBoundingClientRect().bottom : $("header.top").getBoundingClientRect().bottom;
+  window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - bottom - 12, behavior:"smooth"});
 }
 /* show the bar once the customer has scrolled past the top section */
 let mTick=false;
 function updateMSearch(){
   mTick=false;
   const onShop=$("#shop").classList.contains("on");
-  const past=$("#offers").getBoundingClientRect().top < 80;
+  const top=$("#offers").getBoundingClientRect().top;
+  const isOn=$("#msearch").classList.contains("on");
+  const past = isOn ? top < 180 : top < 80;   // buffer zone: no rapid on/off at the edge
   const keep=document.activeElement===$("#mSearch") || $("#mSearch").value.trim();
   $("#msearch").classList.toggle("on", onShop && (past || !!keep));
 }
@@ -1189,7 +1215,7 @@ document.addEventListener("input",e=>{
   if(e.target.name==="pin"){ form.pin=e.target.value; form.pinSrc="checkout"; store.set("form",form); const h=$("#ckPinMsg"); if(h) h.textContent=""; }
 });
 document.addEventListener("change",e=>{
-  if(e.target.name==="store" && e.target.form?.id==="checkout"){ state.chosenStore=+e.target.value; store.set("chosen",state.chosenStore); renderStoreBar(); renderStores(); updateStorePick(); }
+  if(e.target.name==="store" && e.target.form?.id==="checkout"){ state.chosenStore=+e.target.value; store.set("chosen",state.chosenStore); renderStoreBar(); renderStores(); renderFinder(); updateStorePick(); }
 });
 document.addEventListener("submit",e=>{
   if(e.target.id!=="checkout") return; e.preventDefault();
