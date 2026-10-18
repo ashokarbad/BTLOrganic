@@ -48,6 +48,8 @@ a{color:var(--leaf)}
 .storebar b{font-weight:600;color:#fff}
 .storebar .pin{background:var(--mustard);color:var(--ink);border-radius:4px;padding:0 7px;font-weight:600;font-size:14px}
 .storebar .dist{opacity:.8}
+.storebar .sep{opacity:.45}
+@media(max-width:599px){.storebar .sep{display:none}}
 .storebar button{margin-left:auto;background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff;border-radius:999px;padding:2px 14px;cursor:pointer;font-size:14px}
 .storebar button:hover{background:rgba(255,255,255,.12)}
 
@@ -127,6 +129,19 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 
 /* ---------- catalogue ---------- */
 section.cat{padding:56px 0 20px;scroll-margin-top:70px}
+/* sticky search for phones */
+.msearch{display:none;border-top:1px solid var(--line);padding:8px 0}
+.msearch .wrap{display:flex;gap:8px;align-items:center}
+.msearch .searchbox{max-width:none;flex:1}
+.msearch .searchbox input{padding:8px 14px 8px 38px;font-size:16px}
+.mjump{flex:none;font-size:14px;font-weight:600;color:var(--leaf);text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:6px 11px;background:var(--card)}
+.mcount{font-size:13.5px;color:var(--ink-2);margin-top:4px}
+.mcount:empty{display:none}
+@media(max-width:719px){
+  .msearch.on{display:block}
+  section.cat{scroll-margin-top:128px}
+  .list{scroll-margin-top:136px}
+}
 .cat-head{display:grid;gap:8px;margin-bottom:22px}
 @media(min-width:820px){.cat-head{grid-template-columns:1fr auto;align-items:end}}
 .cat-head h2{font-size:clamp(34px,5vw,52px)}
@@ -299,6 +314,17 @@ footer .fine{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);padding
       Cart <span class="count" id="cartCount">0</span><span class="amt" id="cartAmt"></span>
     </button>
   </div>
+  <div class="msearch" id="msearch" role="search">
+    <div class="wrap">
+      <div class="searchbox">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5A4C" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="mSearch" placeholder="Search oils, dals, ghee…" aria-label="Search all products" enterkeyhint="search" autocomplete="off">
+      </div>
+      <a href="#oils" class="mjump" data-go="shop">Oils</a>
+      <a href="#foods" class="mjump" data-go="shop">Foods</a>
+    </div>
+    <p class="mcount wrap" id="mCount" aria-live="polite"></p>
+  </div>
 </header>
 
 <!-- ================= SHOP ================= -->
@@ -422,7 +448,7 @@ footer .fine{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);padding
       <p><a href="#foods" data-go="shop">Organic foods</a></p>
       <p><a href="#stores" data-go="shop">Store locations</a></p>
     </div>
-    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area.</p>
+    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area. <span id="ver">Site version 8 (18 Oct 2026)</span></p>
   </div>
 </footer>
 
@@ -565,8 +591,8 @@ const PINS = {
    STATE + storage (wrapped: storage can be unavailable)
    ========================================================= */
 const store = {
-  get(k,d){try{const v=localStorage.getItem("btl_"+k);return v?JSON.parse(v):d}catch(e){return d}},
-  set(k,v){try{localStorage.setItem("btl_"+k,JSON.stringify(v))}catch(e){}}
+  get(k,d){try{const v=localStorage.getItem("btl2_"+k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem("btl2_"+k,JSON.stringify(v))}catch(e){}}
 };
 const ALL = [...OILS,...FOODS];
 const byId = Object.fromEntries(ALL.map(p=>[p.id,p]));
@@ -633,8 +659,12 @@ function renderStoreBar(){
     el.innerHTML=pinIcon+'<span>Delivering across Pune from 17 stores. Share your location or add your pincode to see your nearest store.</span><button data-act="detect" style="margin-left:auto">Detect location</button><button data-act="focus-pin" style="margin-left:0">Enter pincode</button>';
   } else {
     const label = state.chosenStore && nearestStore() && state.chosenStore!==nearestStore().id ? "Your chosen store" : "Nearest store";
-    el.innerHTML=pinIcon+`<span>${label}: <b>${esc(s.name)}</b></span><span class="pin">${s.pin}</span>`+
-      (s.d!=null?`<span class="dist">${fmtKm(s.d)} from ${esc(state.loc.label)}</span>`:"")+
+    const L=state.loc;
+    const to = L.pin
+      ? `<span>Delivering to <span class="pin">${esc(L.pin)}</span>${L.area?" "+esc(L.area):""}</span>`
+      : `<span>Delivering to your location, <button class="linkbtn" data-act="focus-pin" style="color:#fff;border:0;padding:0;margin:0;border-radius:0">add pincode</button></span>`;
+    el.innerHTML=pinIcon+to+`<span class="sep" aria-hidden="true">|</span><span>${label}: <b>${esc(s.name)}</b> (${s.pin})`+
+      (s.d!=null?` <span class="dist">${fmtKm(s.d)} away</span>`:"")+'</span>'+
       '<button data-act="focus-pin">Change</button>';
   }
 }
@@ -643,7 +673,7 @@ function renderFinder(){
   if(!s){r.classList.remove("on");r.innerHTML="";return}
   r.classList.add("on");
   const far = s.d>30 ? `<p class="warn">Our stores deliver within Pune and Pimpri-Chinchwad. The nearest one is about ${Math.round(s.d)} km from you, so call <a href="tel:+917414901815">74149 01815</a> to check if we can deliver.</p>` : "";
-  const est = state.loc.approx ? `<p class="warn">We estimated pincode ${esc(state.loc.pin)} from your location. If it's wrong, type the right one above.</p>` : "";
+  const est = state.loc.approx ? `<p class="warn">Please check pincode ${esc(state.loc.pin)}. If it's not your delivery pincode, type the right one above.</p>` : "";
   r.innerHTML=`<p>Nearest to ${esc(state.loc.label)}${state.loc.detected?" (detected)":""}</p><h3>${esc(s.name)}</h3><p>${esc(s.addr)} · <b>${s.pin}</b> · ${fmtKm(s.d)}</p>${est}${far}
   <p style="margin-top:10px"><a href="#oils" class="btn mustard" style="display:inline-block;text-decoration:none">Start shopping</a> <button type="button" class="linkbtn" data-act="see-stores" style="margin-left:8px">See all stores by distance</button></p>`;
 }
@@ -689,7 +719,7 @@ function renderList(kind){
   const src = isOil?OILS:FOODS;
   const tag = isOil?state.oilTag:state.foodTag;
   const q = (isOil?state.oilQ:state.foodQ).trim().toLowerCase();
-  const rows = src.filter(p=>(tag==="All"||p.tags.includes(tag)) && (!q || (p.name+" "+p.loc+" "+p.use).toLowerCase().includes(q)));
+  const rows = src.filter(p=>(tag==="All"||p.tags.includes(tag)) && (!q || (p.name+" "+p.loc+" "+p.use+" "+p.tags.join(" ")).toLowerCase().includes(q)));
   $(isOil?"#oilList":"#foodList").innerHTML = rows.length ? rows.map(itemHTML).join("") :
     `<p class="empty">No ${isOil?"oils":"items"} match "${esc(q)}". Try another name, or <button class="linkbtn" data-clear="${kind}">clear the search</button>.</p>`;
 }
@@ -938,7 +968,7 @@ function renderPending(){
 function go(screen,anchor){
   document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("on",s.id===screen));
   if(screen==="cart") renderCart();
-  renderPending();
+  renderPending(); updateMSearch();
   if(anchor){ setTimeout(()=>{const el=document.getElementById(anchor); el&&el.scrollIntoView()},10) } else window.scrollTo({top:0,behavior:"instant"});
 }
 let toastT;
@@ -962,6 +992,7 @@ $("#finder").addEventListener("submit",e=>{
   err.textContent=""; setLocation({pin,lat:c.lat,lng:c.lng,label:pin});
   form.pin=pin; store.set("form",form);
 });
+$("#pinInput").addEventListener("focus",e=>e.target.select());
 $("#pinInput").addEventListener("input",e=>{
   e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);
   if(e.target.value.length===6) $("#finder").requestSubmit();   // find the store as soon as 6 digits are in
@@ -974,28 +1005,38 @@ $("#pinInput").addEventListener("input",e=>{
        then offline estimate from the nearest known Pune pincode)
    3. Nearest store is ranked using the real GPS coordinates
    ========================================================= */
+/* Lookup order: OpenStreetMap first (street-level postcodes), BigDataCloud second
+   (often returns the city's head-office pincode, e.g. 411001 for all of Pune).
+   A returned pincode is only accepted if its area centre is within PIN_MAX_KM of
+   the customer's GPS position; otherwise the box is left blank for the customer. */
+const PIN_MAX_KM = 5;
+const COARSE_M = 1500;   // GPS accuracy worse than this (metres) = too rough to detect a pincode
 const REVERSE = [
-  async (lat,lng,signal)=>{
-    const r=await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`,{signal});
-    const j=await r.json(); return {pin:j.postcode, area:j.locality||j.city};
-  },
-  async (lat,lng,signal)=>{
+  ["osm", async (lat,lng,signal)=>{
     const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=18&addressdetails=1&lat=${lat}&lon=${lng}`,{signal,headers:{"Accept-Language":"en"}});
     const j=await r.json(); const a=j.address||{}; return {pin:a.postcode, area:a.suburb||a.neighbourhood||a.city_district||a.city};
-  }
+  }],
+  ["bdc", async (lat,lng,signal)=>{
+    const r=await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`,{signal});
+    const j=await r.json(); return {pin:j.postcode, area:j.locality||j.city};
+  }]
 ];
 async function pinFromCoords(lat,lng){
-  for(const fn of REVERSE){
+  for(const [src,fn] of REVERSE){
     const ac=new AbortController(); const t=setTimeout(()=>ac.abort(),6000);
     try{
       const r=await fn(lat,lng,ac.signal);
       const pin=String(r.pin||"").replace(/\s/g,"");
-      if(/^\d{6}$/.test(pin)) return {pin,area:r.area||"",approx:false};
+      if(!/^\d{6}$/.test(pin)) continue;
+      const c=PINS[pin];
+      if(c){
+        if(km(lat,lng,c[0],c[1])<=PIN_MAX_KM) return {pin,area:r.area||"",approx:false};
+        continue;                                   // pincode is for a far-away area: don't trust it
+      }
+      if(src==="osm") return {pin,area:r.area||"",approx:true};   // not in our list: show, but ask to confirm
     }catch(e){} finally{clearTimeout(t)}
   }
-  let best=null;
-  for(const [p,[a,b]] of Object.entries(PINS)){const d=km(lat,lng,a,b); if(!best||d<best.d) best={pin:p,d}}
-  return best && best.d<8 ? {pin:best.pin,area:"",approx:true} : null;
+  return null;                                      // not sure: leave the box blank
 }
 
 let detecting=false;
@@ -1024,18 +1065,25 @@ async function detect(){
     return;
   }
   locMsg("Location found. Detecting your pincode…");
-  const {latitude:lat,longitude:lng}=pos.coords;
-  const r=await pinFromCoords(lat,lng);
+  const {latitude:lat,longitude:lng,accuracy}=pos.coords;
+  /* laptops without GPS often report a rough, city-level position: don't guess a pincode from it */
+  const coarse = accuracy > COARSE_M;
+  const r = coarse ? null : await pinFromCoords(lat,lng);
   detecting=false; setBusy(false);
   if(r){
     $("#pinInput").value=r.pin; form.pin=r.pin; store.set("form",form);
     const ck=$("#ckPin"); if(ck){ ck.value=r.pin; ck.closest(".field").classList.remove("bad"); }
-    locMsg("");
-    setLocation({pin:r.pin,lat,lng,label:r.area?`${r.area} ${r.pin}`:r.pin,detected:true,approx:r.approx});
+    setLocation({pin:r.pin,lat,lng,area:r.area||"",label:r.area?`${r.area} ${r.pin}`:r.pin,detected:true,approx:r.approx});
+    locMsg("Detected from your location. Not right? Type your delivery pincode.");
     toast(`Pincode ${r.pin} detected`);
   } else {
-    locMsg("We found your location but not its pincode. Your nearest store is shown below. Type your pincode if it's wrong.");
-    setLocation({pin:"",lat,lng,label:"your location",detected:true});
+    /* we know where they are (nearest store is accurate) but not the exact pincode: leave it blank */
+    $("#pinInput").value="";
+    if(form.pinSrc!=="checkout"){ form.pin=""; form.pinSrc=""; store.set("form",form); const ck=$("#ckPin"); if(ck) ck.value=""; }
+    setLocation({pin:"",lat,lng,label:"your location",detected:true,coarse});
+    locMsg(coarse
+      ? `Your device only shared an approximate location (within about ${Math.round(accuracy/1000)} km). Please type your delivery pincode so we pick the right store.`
+      : "We found your location and your nearest store. Please type your delivery pincode.");
   }
   refreshCheckoutStores();
 }
@@ -1049,10 +1097,20 @@ $("#locAsk").addEventListener("click",e=>{ if(e.target.id==="locAsk") closeAsk(t
 document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !$("#locAsk").hidden) closeAsk(true); });
 
 async function initLocation(){
-  if(state.loc) return;                       // already know where they are
+  const L=state.loc;
+  if(L && L.detected && L.pin){                // re-check a saved detected pincode against its GPS point
+    const c=PINS[L.pin];
+    if(c && km(L.lat,L.lng,c[0],c[1])>PIN_MAX_KM){
+      L.pin=""; L.area=""; L.label="your location"; store.set("loc",L);
+      if(form.pinSrc==="detected"){ form.pin=""; form.pinSrc=""; store.set("form",form); }
+      $("#pinInput").value=""; renderStoreBar(); renderFinder();
+    }
+  }
+  if(L && !L.detected) return;                 // customer typed a pincode: respect it
   let st="prompt";
   try{ if(navigator.permissions){ st=(await navigator.permissions.query({name:"geolocation"})).state; } }catch(e){}
-  if(st==="granted"){ detect(); return; }     // allowed before: detect silently
+  if(st==="granted"){ detect(); return; }     // allowed before: detect again (they may have moved)
+  if(L) return;
   if(st==="denied" || store.get("askDismissed",false)) return;
   setTimeout(()=>{ if(!state.loc) openAsk(); },900);
 }
@@ -1072,7 +1130,7 @@ document.addEventListener("click",e=>{
   if(d.act==="focus-pin"){ go("shop","home"); setTimeout(()=>$("#pinInput").focus(),80); return; }
   if(d.act==="see-stores"){ $("#stores").scrollIntoView(); return; }
   if(d.chip){ if(d.chip==="oil") state.oilTag=d.tag; else state.foodTag=d.tag; renderChips(d.chip); renderList(d.chip); return; }
-  if(d.clear){ if(d.clear==="oil"){state.oilQ="";$("#oilSearch").value=""} else {state.foodQ="";$("#foodSearch").value=""} renderList(d.clear); return; }
+  if(d.clear){ if(d.clear==="oil"){state.oilQ="";$("#oilSearch").value=""} else {state.foodQ="";$("#foodSearch").value=""} $("#mSearch").value=""; $("#mCount").textContent=""; renderList(d.clear); return; }
   if(d.pid){ state.sel[d.pid]=+d.si; const p=byId[d.pid]; document.getElementById("it-"+p.id).outerHTML=itemHTML(p); document.querySelector(`#it-${p.id} [data-si="${d.si}"]`).focus(); return; }
   if(d.add){ const p=byId[d.add]; const si=state.sel[p.id] ?? firstAvail(p); const k=p.id+"|"+si; state.cart[k]=(state.cart[k]||0)+1; saveCart();
     document.getElementById("it-"+p.id).outerHTML=itemHTML(p);
@@ -1085,6 +1143,35 @@ document.addEventListener("click",e=>{
 $("#cartBtn").addEventListener("click",()=>go("cart"));
 $("#oilSearch").addEventListener("input",e=>{state.oilQ=e.target.value;renderList("oil")});
 $("#foodSearch").addEventListener("input",e=>{state.foodQ=e.target.value;renderList("food")});
+
+/* ---------- sticky mobile search: searches oils + foods together ---------- */
+const matches=(p,q)=>(p.name+" "+p.loc+" "+p.use+" "+p.tags.join(" ")).toLowerCase().includes(q);
+let mT;
+$("#mSearch").addEventListener("input",e=>{
+  const raw=e.target.value; const q=raw.trim().toLowerCase();
+  state.oilQ=state.foodQ=raw; $("#oilSearch").value=raw; $("#foodSearch").value=raw;
+  if(q){ state.oilTag="All"; state.foodTag="All"; renderChips("oil"); renderChips("food"); }
+  renderList("oil"); renderList("food");
+  const no=OILS.filter(p=>matches(p,q)).length, nf=FOODS.filter(p=>matches(p,q)).length;
+  $("#mCount").textContent = !q ? "" : (no||nf) ? `${no} oil${no===1?"":"s"}, ${nf} organic food${nf===1?"":"s"} match "${raw.trim()}"` : `Nothing matches "${raw.trim()}". Try another name, like groundnut or tur dal.`;
+  clearTimeout(mT);
+  mT=setTimeout(()=>{ if(!q) return; const target = no ? "#oilList" : nf ? "#foodList" : null; if(target) scrollBelowHeader($(target)); },350);
+});
+$("#mSearch").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); e.target.blur(); } });  // close keyboard
+function scrollBelowHeader(el){
+  const h=$("header.top").getBoundingClientRect().height;
+  window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - h - 12, behavior:"smooth"});
+}
+/* show the bar once the customer has scrolled past the top section */
+let mTick=false;
+function updateMSearch(){
+  mTick=false;
+  const onShop=$("#shop").classList.contains("on");
+  const past=$("#offers").getBoundingClientRect().top < 80;
+  const keep=document.activeElement===$("#mSearch") || $("#mSearch").value.trim();
+  $("#msearch").classList.toggle("on", onShop && (past || !!keep));
+}
+window.addEventListener("scroll",()=>{ if(!mTick){ mTick=true; requestAnimationFrame(updateMSearch); } },{passive:true});
 
 document.addEventListener("input",e=>{
   const f=e.target.form; if(!f||f.id!=="checkout") return;
