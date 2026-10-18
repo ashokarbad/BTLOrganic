@@ -55,7 +55,7 @@ a{color:var(--leaf)}
 
 /* ---------- header ---------- */
 header.top{position:sticky;top:0;z-index:30;background:rgba(240,242,232,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-header.top .wrap{display:flex;align-items:center;gap:20px;height:64px}
+header.top>.wrap{display:flex;align-items:center;gap:20px;height:64px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
 .brand .mark{width:38px;height:38px}
 .brand strong{font-family:"Rozha One",serif;font-size:24px;font-weight:400;line-height:1}
@@ -136,12 +136,13 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 /* ---------- catalogue ---------- */
 section.cat{padding:56px 0 20px;scroll-margin-top:70px}
 /* sticky search for phones */
-.msearch{display:none;border-top:1px solid var(--line);padding:8px 0}
+.msearch{display:none;border-top:1px solid var(--line);padding:7px 0}
 .msearch .wrap{display:flex;gap:8px;align-items:center}
 .msearch .searchbox{max-width:none;flex:1}
-.msearch .searchbox input{padding:8px 14px 8px 38px;font-size:16px}
-.mjump{flex:none;font-size:14px;font-weight:600;color:var(--leaf);text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:6px 11px;background:var(--card)}
-.mcount{font-size:13.5px;color:var(--ink-2);margin-top:4px}
+.msearch .searchbox input{padding:6px 12px 6px 36px;font-size:16px;line-height:1.3;height:38px}
+.msearch .searchbox svg{left:12px}
+.mjump{flex:none;font-size:13.5px;font-weight:600;color:var(--leaf);text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:0 11px;height:34px;display:inline-flex;align-items:center;background:var(--card)}
+.mcount{font-size:13px;color:var(--ink-2);margin-top:4px;line-height:1.3}
 .mcount:empty{display:none}
 @media(max-width:719px){
   /* floats just below the sticky header, so showing it never pushes the page (no jump / flicker) */
@@ -458,7 +459,7 @@ footer .fine{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);padding
       <p><a href="#foods" data-go="shop">Organic foods</a></p>
       <p><a href="#stores" data-go="shop">Store locations</a></p>
     </div>
-    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area. <span id="ver">Site version 10 (19 Oct 2026)</span></p>
+    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area. <span id="ver">Site version 11 (19 Oct 2026)</span></p>
   </div>
 </footer>
 
