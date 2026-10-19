@@ -470,7 +470,7 @@ footer .fine{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);padding
       <p><a href="#foods" data-go="shop">Organic foods</a></p>
       <p><a href="#stores" data-go="shop">Store locations</a></p>
     </div>
-    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area. <span id="ver">Site version 20 (19 Oct 2026)</span></p>
+    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area. <span id="ver">Site version 21 (20 Oct 2026)</span></p>
   </div>
 </footer>
 
@@ -604,7 +604,7 @@ const PINS = {
  "411043":[18.4600,73.8550],"411044":[18.6600,73.7710],"411045":[18.5620,73.7850],"411046":[18.4520,73.8660],
  "411047":[18.6000,73.9300],"411048":[18.4720,73.8950],"411051":[18.4760,73.8150],"411052":[18.4900,73.8150],
  "411057":[18.5960,73.7400],"411058":[18.4800,73.8020],"411060":[18.4700,73.9200],"411061":[18.5920,73.8110],
- "411062":[18.6850,73.8000],"411067":[18.5640,73.8130],"411068":[18.4600,73.9200],"411069":[18.5560,73.7930],
+ "411062":[18.6850,73.8000],"411067":[18.5640,73.8130],"411068":[18.4600,73.9200],
  "412101":[18.6200,73.7100],"412105":[18.6770,73.8970],"412114":[18.6250,73.9200],"412115":[18.5900,73.7150],
  "412207":[18.5800,73.9800],"412308":[18.4700,73.9800],"410501":[18.7600,73.8600],"411025":[18.5200,73.8800]
 };
@@ -680,7 +680,7 @@ function renderStoreBar(){
   if(!s){
     el.innerHTML=pinIcon+'<span>Delivering across Pune from 17 stores. Share your location or add your pincode to see your nearest store.</span><button data-act="detect" style="margin-left:auto">Detect location</button><button data-act="focus-pin" style="margin-left:0">Enter pincode</button>';
   } else {
-    const label = state.chosenStore && nearestStore() && state.chosenStore!==nearestStore().id ? "Your chosen store" : "Nearest store";
+    const label = state.chosenStore && nearestStore() && state.chosenStore!==nearestStore().id ? "From your chosen store" : "From nearest store";
     const L=state.loc;
     const plain='style="color:#fff;border:0;padding:0;margin:0;border-radius:0"';
     const to = pinConfirmed(L)
@@ -704,6 +704,7 @@ function renderFinder(){
   r.classList.add("on");
   const L=state.loc, near=nearestStore();
   const chosen = state.chosenStore && near && near.id!==s.id;
+  const farChosen = chosen && s.d>8 ? `<p class="warn">This store is ${fmtKm(s.d)} from you, so delivery may take longer. Your nearest is ${esc(near.name)} (${fmtKm(near.d)}). <button type="button" class="linkbtn" data-act="use-nearest">Switch to nearest</button></p>` : "";
   const far = s.d>30 ? `<p class="warn">Our stores deliver within Pune and Pimpri-Chinchwad. This store is about ${Math.round(s.d)} km from you, so call <a href="tel:+917414901815">74149 01815</a> to check if we can deliver.</p>` : "";
   const est = "";
   /* only ask for a pincode when the location itself is too rough to trust the store choice */
@@ -719,7 +720,7 @@ function renderFinder(){
       ${compact?`<button type="button" class="fc-edit" data-act="edit-loc" aria-label="Change delivery location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>Edit</button>`:""}</div>
     <h3>${esc(s.name)}</h3>
     <p>${esc(s.addr)} · <b>${s.pin}</b>${s.d!=null?" · "+fmtKm(s.d)+" away":""}</p>
-    <p class="fc-deliv">${deliv}</p>${state.locStale?`<p class="warn stale">This location is ${savedAgo(L)}. Moved? <button type="button" class="linkbtn" data-act="detect">Update to my current location</button></p>`:""}${noPin}${est}${far}
+    <p class="fc-deliv">${deliv}</p>${state.locStale?`<p class="warn stale">This location is ${savedAgo(L)}. Moved? <button type="button" class="linkbtn" data-act="detect">Update to my current location</button></p>`:""}${noPin}${est}${farChosen}${far}
     <p style="margin-top:12px"><a href="#oils" class="btn mustard">Start shopping</a> <button type="button" class="linkbtn" data-act="see-stores" style="margin-left:8px">See all stores</button></p>`;
 }
 function renderStores(){
@@ -1178,16 +1179,18 @@ function savedAgo(L){
   return h<24 ? `from ${Math.max(2,Math.round(h))} hours ago` : `from ${Math.round(h/24)} day${Math.round(h/24)>1?"s":""} ago`;
 }
 async function initLocation(){
-  const L=state.loc;
+  const L=state.loc; let badPin=false;
   if(L && L.detected && L.pin){                // re-check a saved detected pincode against its GPS point
     const c=PINS[L.pin];
-    if(c && km(L.lat,L.lng,c[0],c[1])>PIN_MAX_KM){
+    if((c && km(L.lat,L.lng,c[0],c[1])>PIN_MAX_KM) || (!c && L.approx)){
+      badPin=true;
+      if(form.pin===L.pin){ form.pin=""; form.pinSrc=""; store.set("form",form); }
       L.pin=""; L.area=""; L.label="your location"; store.set("loc",L);
       if(form.pinSrc==="detected"){ form.pin=""; form.pinSrc=""; store.set("form",form); }
       $("#pinInput").value=""; renderStoreBar(); renderFinder();
     }
   }
-  if(L && !isStale(L)) return;                 // set during this visit: keep it
+  if(L && !isStale(L) && !badPin) return;      // set during this visit: keep it (unless its pincode was wrong)
   let st="prompt";
   try{ if(navigator.permissions){ st=(await navigator.permissions.query({name:"geolocation"})).state; } }catch(e){}
   if(st==="granted"){ detect(); return; }      // allowed before: detect again, they may have moved
@@ -1208,6 +1211,7 @@ document.addEventListener("click",e=>{
   const d=t.dataset;
   if(d.go){ if(t.tagName==="A"){e.preventDefault(); go(d.go,(t.getAttribute("href")||"").replace("#","")||null);} else go(d.go,d.to||null); return; }
   if(d.act==="detect"){ detect(); return; }
+  if(d.act==="use-nearest"){ state.chosenStore=null; store.set("chosen",null); renderStoreBar(); renderFinder(); renderStores(); toast("Ordering from "+nearestStore().name); return; }
   if(d.act==="confirm-pin"){ const L=state.loc; if(L&&L.pin){ L.confirmed=true; store.set("loc",L); form.pin=L.pin; form.pinSrc="entered"; store.set("form",form); renderStoreBar(); renderFinder(); toast("Delivering to "+L.pin); } return; }
   if(d.act==="focus-pin" || d.act==="edit-loc"){ state.editingLoc=true; renderFinder(); go("shop","home"); setTimeout(()=>$("#pinInput").focus(),80); return; }
   if(d.act==="see-stores"){ $("#stores").scrollIntoView(); return; }
@@ -1229,7 +1233,7 @@ document.addEventListener("click",e=>{
   if(d.inc){ state.cart[d.inc]++; saveCart(); renderCart(); return; }
   if(d.dec){ state.cart[d.dec]--; if(state.cart[d.dec]<=0) delete state.cart[d.dec]; saveCart(); renderCart(); return; }
   if(d.rm){ delete state.cart[d.rm]; saveCart(); renderCart(); return; }
-  if(d.store){ state.chosenStore=+d.store; store.set("chosen",state.chosenStore); renderStoreBar(); renderStores(); renderFinder(); toast("You'll order from "+STORES.find(s=>s.id===+d.store).name); return; }
+  if(d.store){ state.chosenStore=+d.store; store.set("chosen",state.chosenStore); renderStoreBar(); renderStores(); renderFinder(); const cs=rankedStores().find(x=>x.id===+d.store); toast(`Ordering from ${cs.name}`+(cs.d!=null?` · ${fmtKm(cs.d)} from you`:"")); $("#home").scrollIntoView(); return; }
 });
 $("#cartBtn").addEventListener("click",()=>go("cart"));
 $("#oilSearch").addEventListener("input",e=>{state.oilQ=e.target.value;renderList("oil")});
