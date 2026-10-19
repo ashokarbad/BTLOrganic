@@ -107,12 +107,15 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 .detect[aria-busy="true"]{opacity:.7;cursor:progress}
 .detect[aria-busy="true"] svg{animation:pulse 1s ease-in-out infinite}
 @keyframes pulse{50%{transform:scale(.8);opacity:.5}}
+.finder.located>.geo{display:none}
 .finder.compact>label,.finder.compact>.row,.finder.compact>.geo,.finder.compact>.err{display:none}
 .finder.compact .result{border-top:0;padding-top:0;margin-top:0}
 .fc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600;font-size:15px;color:var(--leaf);margin-bottom:4px}
 .fc-edit{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:3px 11px;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer}
 .fc-edit:hover{border-color:var(--leaf);color:var(--leaf)}
 .fc-deliv{margin-top:6px;font-size:15px;color:var(--ink)!important}
+.fc-ask{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:8px}
+.btn.small{padding:6px 14px;font-size:15px}
 .finder .warn{margin-top:10px;background:var(--mustard-soft);border-radius:8px;padding:8px 12px;font-size:14.5px;color:var(--ink)}
 .hint{font-size:14px;color:var(--ink-2);margin-top:4px;min-height:0}
 /* location permission ask */
@@ -179,9 +182,17 @@ section.cat{padding:56px 0 20px;scroll-margin-top:70px}
 .size{border:1.5px solid var(--line);background:#fff;border-radius:var(--radius-s);padding:4px 10px;cursor:pointer;font-size:14.5px;line-height:1.25;text-align:left;position:relative}
 .size b{display:block;font-weight:700;color:var(--amber);font-size:15.5px}
 .size[aria-checked="true"]{border-color:var(--leaf);background:#EAF2E6;box-shadow:inset 0 0 0 1px var(--leaf)}
+.size .cnt{position:absolute;top:-9px;left:-7px;min-width:20px;height:20px;border-radius:999px;background:var(--leaf);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;padding:0 5px;line-height:1}
+.size.has{border-color:var(--leaf-2)}
+.cartline{flex-basis:100%;display:flex;align-items:center;gap:6px;font-size:14.5px;font-weight:600;color:var(--leaf);margin-bottom:-2px}
 .size .deal{position:absolute;top:-9px;right:-6px;background:var(--mustard);color:var(--ink);font-size:11px;font-weight:700;border-radius:4px;padding:0 5px;line-height:16px}
 .add{display:flex;align-items:center;gap:10px}
 .incart{font-size:14px;color:var(--leaf);font-weight:600}
+.qty{display:inline-flex;align-items:center;background:var(--leaf);color:#fff;border-radius:var(--radius-m);height:42px;overflow:hidden}
+.qty button{width:42px;height:42px;border:0;background:transparent;color:#fff;cursor:pointer;display:grid;place-items:center}
+.qty button:hover{background:rgba(255,255,255,.14)}
+.qty button:focus-visible{outline:3px solid var(--mustard);outline-offset:-3px}
+.qty .n{min-width:30px;text-align:center;font-weight:700;font-size:17px}
 .add .btn{padding:8px 16px}
 .empty{padding:24px;border:1.5px dashed var(--line);border-radius:var(--radius-m);color:var(--ink-2)}
 .more{margin-top:28px;background:var(--paper-2);border-radius:var(--radius-l);padding:22px}
@@ -459,7 +470,7 @@ footer .fine{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);padding
       <p><a href="#foods" data-go="shop">Organic foods</a></p>
       <p><a href="#stores" data-go="shop">Store locations</a></p>
     </div>
-    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area. <span id="ver">Site version 11 (19 Oct 2026)</span></p>
+    <p class="fine">© BTL Organic. Prices as per current price list and may change. Distances are approximate, based on pincode area. <span id="ver">Site version 20 (19 Oct 2026)</span></p>
   </div>
 </footer>
 
@@ -631,7 +642,7 @@ function activeStore(){
   if(state.chosenStore){const s=rankedStores().find(x=>x.id===state.chosenStore); if(s) return s;}
   return nearestStore();
 }
-const fmtKm = d=> d==null ? "" : (d<1 ? "under 1 km" : "about "+d.toFixed(1)+" km");
+const fmtKm = d=> d==null ? "" : (d<0.1 ? "0.1 km" : d.toFixed(1)+" km");   // same exact figure everywhere
 
 function lookupPin(pin){
   if(PINS[pin]) return {lat:PINS[pin][0],lng:PINS[pin][1]};
@@ -671,32 +682,44 @@ function renderStoreBar(){
   } else {
     const label = state.chosenStore && nearestStore() && state.chosenStore!==nearestStore().id ? "Your chosen store" : "Nearest store";
     const L=state.loc;
-    const to = L.pin
+    const plain='style="color:#fff;border:0;padding:0;margin:0;border-radius:0"';
+    const to = pinConfirmed(L)
       ? `<span>Delivering to <span class="pin">${esc(L.pin)}</span>${L.area?" "+esc(L.area):""}</span>`
-      : `<span>Delivering to your location, <button class="linkbtn" data-act="focus-pin" style="color:#fff;border:0;padding:0;margin:0;border-radius:0">add pincode</button></span>`;
+      : state.locStale ? `<span>Last used pincode ${L.pin?esc(L.pin):"not set"} (${savedAgo(L)})</span>`
+      : `<span>Delivering to your current location</span>`;   // store already picked from GPS: nothing to ask here
     el.innerHTML=pinIcon+to+`<span class="sep" aria-hidden="true">|</span><span>${label}: <b>${esc(s.name)}</b> (${s.pin})`+
       (s.d!=null?` <span class="dist">${fmtKm(s.d)} away</span>`:"")+'</span>'+
       '<button data-act="focus-pin">Change</button>';
   }
 }
+/* the pincode we deliver to is only "known" once the customer typed it or confirmed a detected one */
+const pinConfirmed = L => !!(L && L.pin && (!L.detected || L.confirmed) && !state.locStale);
 function renderFinder(){
   const r=$("#finderResult"); const f=$("#finder"); const s=activeStore();
   const compact = !!s && !state.editingLoc;          // location known: show the store, hide the form
   f.classList.toggle("compact", compact);
+  f.classList.toggle("located", !!(state.loc && state.loc.detected));   // already detected: just type a pincode
+  $("#finder > label").textContent = state.loc && state.loc.detected ? "Enter your delivery pincode" : "Find the store nearest to you";
   if(!s){r.classList.remove("on");r.innerHTML="";return}
   r.classList.add("on");
   const L=state.loc, near=nearestStore();
   const chosen = state.chosenStore && near && near.id!==s.id;
   const far = s.d>30 ? `<p class="warn">Our stores deliver within Pune and Pimpri-Chinchwad. This store is about ${Math.round(s.d)} km from you, so call <a href="tel:+917414901815">74149 01815</a> to check if we can deliver.</p>` : "";
-  const est = L.approx ? `<p class="warn">Please check pincode ${esc(L.pin)}. If it's not your delivery pincode, tap Edit and type the right one.</p>` : "";
-  const noPin = !L.pin ? `<p class="warn">${L.coarse?"Your device shared only an approximate location. ":""}Add your delivery pincode so we can confirm the right store.</p>` : "";
-  const deliv = L.pin ? `Delivering to <b>${esc(L.pin)}</b>${L.area?" "+esc(L.area):""}${L.detected?" (detected)":""}` : `Delivering to your current location`;
+  const est = "";
+  /* only ask for a pincode when the location itself is too rough to trust the store choice */
+  const noPin = (!L.pin && L.coarse) ? `<p class="warn">Your device shared only an approximate location, so this store may not be the closest. Tap Edit to enter your pincode.</p>` : "";
+  const deliv =
+      pinConfirmed(L) ? `Delivering to <b>${esc(L.pin)}</b>${L.area?" "+esc(L.area):""}`
+    : state.locStale ? `Last used pincode: <b>${L.pin?esc(L.pin):"not set"}</b>`
+    : L.pin ? `Is your delivery pincode <b>${esc(L.pin)}</b>${L.area?" ("+esc(L.area)+")":""}?
+        <span class="fc-ask"><button type="button" class="btn small" data-act="confirm-pin">Yes, deliver here</button><button type="button" class="linkbtn" data-act="edit-loc">No, change it</button></span>`
+    : `Delivering to your current location`;
   r.innerHTML=`
     <div class="fc-head"><span>${chosen?"Your chosen store":"Your nearest store"}</span>
-      ${compact?`<button type="button" class="fc-edit" data-act="edit-loc" aria-label="Change delivery location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>${L.pin?"Edit":"Add pincode"}</button>`:""}</div>
+      ${compact?`<button type="button" class="fc-edit" data-act="edit-loc" aria-label="Change delivery location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>Edit</button>`:""}</div>
     <h3>${esc(s.name)}</h3>
     <p>${esc(s.addr)} · <b>${s.pin}</b>${s.d!=null?" · "+fmtKm(s.d)+" away":""}</p>
-    <p class="fc-deliv">${deliv}</p>${noPin}${est}${far}
+    <p class="fc-deliv">${deliv}</p>${state.locStale?`<p class="warn stale">This location is ${savedAgo(L)}. Moved? <button type="button" class="linkbtn" data-act="detect">Update to my current location</button></p>`:""}${noPin}${est}${far}
     <p style="margin-top:12px"><a href="#oils" class="btn mustard">Start shopping</a> <button type="button" class="linkbtn" data-act="see-stores" style="margin-left:8px">See all stores</button></p>`;
 }
 function renderStores(){
@@ -704,7 +727,7 @@ function renderStores(){
   $("#storesSub").textContent = state.loc ? `Sorted by distance from ${state.loc.label}. Tap a store to order from it.` : "Enter your pincode above and we'll sort these by distance from you.";
   $("#storeGrid").innerHTML=list.map(s=>`
     <article class="store ${act&&act.id===s.id?"near":""}">
-      <div class="top"><h3>${esc(s.name)}</h3>${s.d!=null?`<span class="km">${s.d<1?"&lt; 1":s.d.toFixed(1)} km</span>`:""}</div>
+      <div class="top"><h3>${esc(s.name)}</h3>${s.d!=null?`<span class="km">${fmtKm(s.d)}</span>`:""}</div>
       <address>${esc(s.addr)}</address>
       <div class="foot"><span class="pinb">${s.pin}</span>
         ${act&&act.id===s.id?`<span class="badge">${near&&near.id===s.id&&!state.chosenStore?"Nearest to you":"Ordering from here"}</span>`:`<button class="linkbtn" data-store="${s.id}">Order from this store</button>`}
@@ -721,18 +744,32 @@ function swatch(p,cls="sw"){
 }
 function firstAvail(p){return p.prices.findIndex(x=>x!=null)}
 function inCartQty(p){return Object.entries(state.cart).filter(([k])=>k.startsWith(p.id+"|")).reduce((a,[,q])=>a+q,0)}
+/* "Add to cart" turns into − qty + once the selected pack size is in the cart */
+function addControl(p,sel,total){
+  const key=p.id+"|"+sel, n=state.cart[key]||0, other=total-n, size=sizesOf(p)[sel].l;
+  if(!n) return `<button class="btn" data-add="${p.id}">${other>0?`Add ${size} too`:"Add to cart"}</button>`;
+  return `<span class="qty" role="group" aria-label="${esc(p.name)} ${size} quantity">
+    <button type="button" data-pdec="${key}" aria-label="${n===1?"Remove":"One less"} ${esc(p.name)} ${size}">${n===1
+      ?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>'
+      :'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg>'}</button>
+    <span class="n" aria-live="polite">${n}</span>
+    <button type="button" data-pinc="${key}" aria-label="One more ${esc(p.name)} ${size}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button>
+  </span>`;
+}
 function itemHTML(p){
-  const sel = state.sel[p.id] ?? firstAvail(p);
   const sz = sizesOf(p);
-  const pills = p.prices.map((pr,i)=>pr==null?"":`<button class="size" role="radio" aria-checked="${i===sel}" data-pid="${p.id}" data-si="${i}">${sz[i].l}<b>${inr(pr)}</b>${p.kind==="oil"&&sz[i].q===5000?'<span class="deal">₹100 off</span>':""}</button>`).join("");
+  const inCart = p.prices.map((pr,i)=>state.cart[p.id+"|"+i]||0);
+  const sel = state.sel[p.id] ?? (inCart.findIndex(n=>n>0)>=0 ? inCart.findIndex(n=>n>0) : firstAvail(p));
+  const pills = p.prices.map((pr,i)=>pr==null?"":`<button class="size${inCart[i]?" has":""}" role="radio" aria-checked="${i===sel}" data-pid="${p.id}" data-si="${i}" aria-label="${sz[i].l}, ${inr(pr)}${inCart[i]?", "+inCart[i]+" in cart":""}">${sz[i].l}<b>${inr(pr)}</b>${p.kind==="oil"&&sz[i].q===5000?'<span class="deal">₹100 off</span>':""}${inCart[i]?`<span class="cnt" aria-hidden="true">${inCart[i]}</span>`:""}</button>`).join("");
   const q=inCartQty(p);
+  const summary = q ? `<p class="cartline"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>In cart: ${inCart.map((n,i)=>n?`${sz[i].l} × ${n}`:"").filter(Boolean).join(", ")}</p>` : "";
   return `<article class="item" id="it-${p.id}">
     ${swatch(p)}
     <h3>${esc(p.name)}${p.loc?`<span class="loc" lang="hi">${esc(p.loc)}</span>`:""}</h3>
     <div><p class="use">${esc(p.use)}</p><div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join("")}${p.kind==="oil"?'<span class="tag">Stone press</span>':""}</div></div>
-    <div class="buy">
+    <div class="buy">${summary}
       <div class="sizes" role="radiogroup" aria-label="Pack size for ${esc(p.name)}">${pills}</div>
-      <div class="add">${q?`<span class="incart">${q} in cart</span>`:""}<button class="btn" data-add="${p.id}">Add to cart</button></div>
+      <div class="add">${addControl(p,sel,q)}</div>
     </div>
   </article>`;
 }
@@ -784,7 +821,7 @@ function renderCart(){
     const p=(state.loc && /^\d{6}$/.test(state.loc.pin||"")) ? state.loc.pin : (/^\d{6}$/.test(fin) ? fin : "");
     if(p){ form.pin=p; form.pinSrc = state.loc && state.loc.pin===p && state.loc.detected ? "detected" : "entered"; store.set("form",form); }
   }
-  const pinHint = form.pinSrc==="detected" ? "Detected from your location. Change it if you're ordering for another address."
+  const pinHint = form.pinSrc==="detected" ? (state.loc && state.loc.approx ? "Estimated from your location. Please check it matches your address." : "Detected from your location, please check it's your delivery pincode.")
                 : form.pinSrc==="entered" && form.pin ? "From the pincode you entered. Change it if you're ordering for another address." : "";
 
   body.innerHTML=`
@@ -817,10 +854,10 @@ function renderCart(){
       <label class="field" id="f-phone"><span>Mobile number <small>(WhatsApp preferred)</small></span><input name="phone" inputmode="numeric" maxlength="10" autocomplete="tel-national" placeholder="10-digit mobile" value="${esc(form.phone)}"><p class="msg">Enter a 10-digit Indian mobile number starting with 6, 7, 8 or 9.</p></label>
       <label class="field" id="f-addr"><span>Delivery address</span><textarea name="addr" rows="2" autocomplete="street-address" placeholder="Flat, building, street, area">${esc(form.addr)}</textarea><p class="msg">Enter the address where we should deliver.</p></label>
       <div class="two">
-        <div class="field" id="f-pin"><label for="ckPin" style="display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:15px;margin-bottom:4px">Pincode <button type="button" class="linkbtn" data-act="detect" style="font-size:14px">Detect</button></label><input id="ckPin" name="pin" inputmode="numeric" maxlength="6" autocomplete="postal-code" value="${esc(form.pin)}"><p class="hint" id="ckPinMsg" aria-live="polite">${pinHint}</p><p class="msg">Enter a 6-digit pincode.</p></div>
+        <div class="field" id="f-pin"><label for="ckPin" style="display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:15px;margin-bottom:4px">Pincode ${state.loc && state.loc.detected ? "" : '<button type="button" class="linkbtn" data-act="detect" style="font-size:14px">Detect</button>'}</label><input id="ckPin" name="pin" inputmode="numeric" maxlength="6" autocomplete="postal-code" value="${esc(form.pin)}"><p class="hint" id="ckPinMsg" aria-live="polite">${pinHint}</p><p class="msg">Enter a 6-digit pincode.</p></div>
         <label class="field" id="f-store"><span>Deliver from</span>
           <select name="store">
-            ${ranked.map(s=>`<option value="${s.id}" ${act&&act.id===s.id?"selected":""}>${esc(s.name)} (${s.pin})${s.d!=null?" · "+(s.d<1?"<1":s.d.toFixed(1))+" km":""}</option>`).join("")}
+            ${ranked.map(s=>`<option value="${s.id}" ${act&&act.id===s.id?"selected":""}>${esc(s.name)} (${s.pin})${s.d!=null?" · "+fmtKm(s.d):""}</option>`).join("")}
           </select><p class="msg">Choose a store.</p></label>
       </div>
       <div class="storepick" id="storePick"></div>
@@ -909,7 +946,7 @@ function buildWhatsApp({id,now,v,s,t}){
   const when=now.toLocaleString("en-IN",{day:"numeric",month:"short",year:"numeric",hour:"numeric",minute:"2-digit",hour12:true});
   const phone=v.phone.replace(/(\d{5})(\d{5})/,"$1 $2");
   const ranked=rankedStores().find(x=>x.id===s.id);
-  const dist=ranked && ranked.d!=null ? `Distance: ${ranked.d<1?"under 1":"about "+ranked.d.toFixed(1)} km from customer` : null;
+  const dist=ranked && ranked.d!=null ? `Distance: ${fmtKm(ranked.d)} from customer` : null;
   const map=state.loc && state.loc.detected ? `Location pin: https://maps.google.com/?q=${state.loc.lat.toFixed(5)},${state.loc.lng.toFixed(5)}` : null;
 
   const group=(kind,title)=>{
@@ -988,15 +1025,22 @@ function renderPending(){
    NAV + EVENTS
    ========================================================= */
 function go(screen,anchor){
+  const wasShop=$("#shop").classList.contains("on");
+  if(wasShop && screen!=="shop") state.shopY=window.scrollY;          // remember where they were browsing
   document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("on",s.id===screen));
   if(screen==="cart") renderCart();
+  if(screen==="shop" && !wasShop){                                     // cart may have changed: refresh product cards
+    renderList("oil"); renderList("food"); renderFinder(); renderStoreBar();
+  }
   renderPending(); updateMSearch();
-  if(anchor){ setTimeout(()=>{const el=document.getElementById(anchor); el&&el.scrollIntoView()},10) } else window.scrollTo({top:0,behavior:"instant"});
+  if(anchor){ setTimeout(()=>{const el=document.getElementById(anchor); el&&el.scrollIntoView()},10) }
+  else window.scrollTo({top:(screen==="shop" && !wasShop && state.shopY) ? state.shopY : 0, behavior:"instant"});
 }
 let toastT;
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("on"),2200)}
 
 function setLocation(loc){
+  loc.at=Date.now(); state.locStale=false;
   state.loc=loc; state.chosenStore=null; store.set("loc",loc); store.set("chosen",null);
   /* keep the delivery form's pincode in step with the latest page pincode */
   if(loc.pin){ form.pin=loc.pin; form.pinSrc=loc.detected?"detected":"entered"; store.set("form",form); }
@@ -1031,7 +1075,7 @@ $("#pinInput").addEventListener("input",e=>{
    (often returns the city's head-office pincode, e.g. 411001 for all of Pune).
    A returned pincode is only accepted if its area centre is within PIN_MAX_KM of
    the customer's GPS position; otherwise the box is left blank for the customer. */
-const PIN_MAX_KM = 5;
+const PIN_MAX_KM = 3.5;
 const COARSE_M = 1500;   // GPS accuracy worse than this (metres) = too rough to detect a pincode
 const REVERSE = [
   ["osm", async (lat,lng,signal)=>{
@@ -1058,7 +1102,11 @@ async function pinFromCoords(lat,lng){
       if(src==="osm") return {pin,area:r.area||"",approx:true};   // not in our list: show, but ask to confirm
     }catch(e){} finally{clearTimeout(t)}
   }
-  return null;                                      // not sure: leave the box blank
+  /* lookups failed or untrustworthy: use the nearest Pune pincode area as an estimate.
+     The customer is asked to confirm it in the store card, and it stays editable at checkout. */
+  let best=null;
+  for(const [p,[a,b]] of Object.entries(PINS)){ const d=km(lat,lng,a,b); if(!best||d<best.d) best={pin:p,d}; }
+  return best && best.d<=3 ? {pin:best.pin,area:"",approx:true} : null;
 }
 
 let detecting=false;
@@ -1080,6 +1128,7 @@ async function detect(){
     pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true,timeout:15000,maximumAge:300000}));
   }catch(err){
     detecting=false; setBusy(false);
+    state.editingLoc=true; renderFinder();      // open the form so the message and pincode box are visible
     locMsg(err.code===1
       ? "Location is blocked for this site. Tap the lock icon next to the web address, set Location to Allow, then try again. Or type your pincode."
       : err.code===3 ? "Finding your location took too long. Try again, or type your pincode."
@@ -1102,7 +1151,7 @@ async function detect(){
   } else {
     /* we know where they are (nearest store is accurate) but not the exact pincode: leave it blank */
     $("#pinInput").value="";
-    if(form.pinSrc!=="checkout"){ form.pin=""; form.pinSrc=""; store.set("form",form); const ck=$("#ckPin"); if(ck) ck.value=""; }
+    if(form.pinSrc==="detected"){ form.pin=""; form.pinSrc=""; store.set("form",form); const ck=$("#ckPin"); if(ck) ck.value=""; }   // keep a pincode the customer typed
     state.editingLoc=false;
     setLocation({pin:"",lat,lng,label:"your location",detected:true,coarse});
     locMsg(coarse
@@ -1120,6 +1169,14 @@ $("#askPin").addEventListener("click",()=>{ closeAsk(true); $("#pinInput").focus
 $("#locAsk").addEventListener("click",e=>{ if(e.target.id==="locAsk") closeAsk(true); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !$("#locAsk").hidden) closeAsk(true); });
 
+/* a location saved on an earlier visit may be out of date (customer may have moved) */
+const STALE_MS = 2*60*60*1000;   // 2 hours
+const isStale = L => !L.at || Date.now()-L.at > STALE_MS;
+function savedAgo(L){
+  if(!L.at) return "from your last visit";
+  const h=(Date.now()-L.at)/36e5;
+  return h<24 ? `from ${Math.max(2,Math.round(h))} hours ago` : `from ${Math.round(h/24)} day${Math.round(h/24)>1?"s":""} ago`;
+}
 async function initLocation(){
   const L=state.loc;
   if(L && L.detected && L.pin){                // re-check a saved detected pincode against its GPS point
@@ -1130,11 +1187,11 @@ async function initLocation(){
       $("#pinInput").value=""; renderStoreBar(); renderFinder();
     }
   }
-  if(L && !L.detected) return;                 // customer typed a pincode: respect it
+  if(L && !isStale(L)) return;                 // set during this visit: keep it
   let st="prompt";
   try{ if(navigator.permissions){ st=(await navigator.permissions.query({name:"geolocation"})).state; } }catch(e){}
-  if(st==="granted"){ detect(); return; }     // allowed before: detect again (they may have moved)
-  if(L) return;
+  if(st==="granted"){ detect(); return; }      // allowed before: detect again, they may have moved
+  if(L){ state.locStale=true; renderStoreBar(); renderFinder(); return; }   // ask them to update
   if(st==="denied" || store.get("askDismissed",false)) return;
   setTimeout(()=>{ if(!state.loc) openAsk(); },900);
 }
@@ -1142,7 +1199,7 @@ async function initLocation(){
 function refreshCheckoutStores(){
   const sel=document.querySelector('#checkout select[name=store]'); if(!sel) return;
   const ranked=rankedStores(); const act=activeStore();
-  sel.innerHTML=ranked.map(s=>`<option value="${s.id}" ${act&&act.id===s.id?"selected":""}>${esc(s.name)} (${s.pin})${s.d!=null?" · "+(s.d<1?"<1":s.d.toFixed(1))+" km":""}</option>`).join("");
+  sel.innerHTML=ranked.map(s=>`<option value="${s.id}" ${act&&act.id===s.id?"selected":""}>${esc(s.name)} (${s.pin})${s.d!=null?" · "+fmtKm(s.d):""}</option>`).join("");
   updateStorePick();
 }
 
@@ -1151,6 +1208,7 @@ document.addEventListener("click",e=>{
   const d=t.dataset;
   if(d.go){ if(t.tagName==="A"){e.preventDefault(); go(d.go,(t.getAttribute("href")||"").replace("#","")||null);} else go(d.go,d.to||null); return; }
   if(d.act==="detect"){ detect(); return; }
+  if(d.act==="confirm-pin"){ const L=state.loc; if(L&&L.pin){ L.confirmed=true; store.set("loc",L); form.pin=L.pin; form.pinSrc="entered"; store.set("form",form); renderStoreBar(); renderFinder(); toast("Delivering to "+L.pin); } return; }
   if(d.act==="focus-pin" || d.act==="edit-loc"){ state.editingLoc=true; renderFinder(); go("shop","home"); setTimeout(()=>$("#pinInput").focus(),80); return; }
   if(d.act==="see-stores"){ $("#stores").scrollIntoView(); return; }
   if(d.chip){ if(d.chip==="oil") state.oilTag=d.tag; else state.foodTag=d.tag; renderChips(d.chip); renderList(d.chip); return; }
@@ -1159,6 +1217,15 @@ document.addEventListener("click",e=>{
   if(d.add){ const p=byId[d.add]; const si=state.sel[p.id] ?? firstAvail(p); const k=p.id+"|"+si; state.cart[k]=(state.cart[k]||0)+1; saveCart();
     document.getElementById("it-"+p.id).outerHTML=itemHTML(p);
     const t=totals(); toast(`Added ${p.name} ${sizesOf(p)[si].l}`+(p.kind==="oil"&&t.off?` · offer saving ${inr(t.off)}`:"")); return; }
+  if(d.pinc || d.pdec){
+    const key=d.pinc||d.pdec, pid=key.split("|")[0], p=byId[pid], si=+key.split("|")[1];
+    state.cart[key]=(state.cart[key]||0)+(d.pinc?1:-1);
+    const removed = state.cart[key]<=0; if(removed) delete state.cart[key];
+    saveCart(); document.getElementById("it-"+pid).outerHTML=itemHTML(p);
+    const el=document.querySelector(`#it-${pid} ${removed?'[data-add]':(d.pinc?'[data-pinc]':'[data-pdec]')}`); el&&el.focus();
+    if(removed) toast(`Removed ${p.name} ${sizesOf(p)[si].l}`);
+    return;
+  }
   if(d.inc){ state.cart[d.inc]++; saveCart(); renderCart(); return; }
   if(d.dec){ state.cart[d.dec]--; if(state.cart[d.dec]<=0) delete state.cart[d.dec]; saveCart(); renderCart(); return; }
   if(d.rm){ delete state.cart[d.rm]; saveCart(); renderCart(); return; }
